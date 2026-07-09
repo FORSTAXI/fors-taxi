@@ -1031,6 +1031,16 @@
       font-weight: 700;
       font-size: 18px;
     }
+    .tariff-plain {
+      position: relative;
+      z-index: 1;
+      display: block;
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--yellow);
+      margin-top: 12px;
+    }
     .tariff-rate {
       position: relative;
       z-index: 1;
@@ -1039,7 +1049,7 @@
       font-size: 26px;
       font-weight: 700;
       color: var(--white);
-      margin-top: 14px;
+      margin-top: 8px;
     }
     .tariff-rate small {
       font-size: 13px;
@@ -1946,29 +1956,33 @@
         <div class="section-head">
           <span class="section-eyebrow">Grille tarifaire officielle</span>
           <h3 class="tariff-title">Les tarifs, noir sur blanc.</h3>
-          <p>Tarifs réglementaires 2026 fixés par arrêté préfectoral pour le département de l'Ain. Ils s'appliquent à toutes les courses, médicales ou non.</p>
+          <p>Tarifs réglementaires 2026 fixés par arrêté préfectoral pour le département de l'Ain. Ils s'appliquent à toutes les courses, médicales ou non. Chaque lettre correspond à une combinaison horaire + type de trajet :</p>
         </div>
 
         <div class="tariff-cards">
           <div class="tariff-card">
             <span class="tariff-letter">A</span>
+            <span class="tariff-plain">Aller-retour, de jour</span>
             <span class="tariff-rate">1,17 €<small>/km</small></span>
-            <span class="tariff-desc">Jour · retour en charge</span>
+            <span class="tariff-desc">7h-19h · le taxi vous ramène, retour « en charge »</span>
           </div>
           <div class="tariff-card">
             <span class="tariff-letter">B</span>
+            <span class="tariff-plain">Aller-retour, de nuit</span>
             <span class="tariff-rate">1,75 €<small>/km</small></span>
-            <span class="tariff-desc">Nuit, dim., férié · retour en charge</span>
+            <span class="tariff-desc">19h-7h, dimanches, jours fériés · retour « en charge »</span>
           </div>
           <div class="tariff-card">
             <span class="tariff-letter">C</span>
+            <span class="tariff-plain">Aller simple, de jour</span>
             <span class="tariff-rate">2,34 €<small>/km</small></span>
-            <span class="tariff-desc">Jour · retour à vide</span>
+            <span class="tariff-desc">7h-19h · le taxi repart seul, retour « à vide »</span>
           </div>
           <div class="tariff-card">
             <span class="tariff-letter">D</span>
+            <span class="tariff-plain">Aller simple, de nuit</span>
             <span class="tariff-rate">3,50 €<small>/km</small></span>
-            <span class="tariff-desc">Nuit, dim., férié · retour à vide</span>
+            <span class="tariff-desc">19h-7h, dimanches, jours fériés · retour « à vide »</span>
           </div>
         </div>
 
