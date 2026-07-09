@@ -16,7 +16,7 @@
 
   <style>
     /* =========================
-       FORS · Vitrine v1
+       FORS TAXI · Vitrine v1
        Couleurs officielles :
        --yellow  : #FFDE59
        --black   : #0A0A0A
@@ -656,6 +656,61 @@
       border-color: var(--black);
       color: var(--yellow);
     }
+    .sim-address {
+      position: relative;
+    }
+    .sim-address-input {
+      width: 100%;
+      margin-bottom: 8px;
+    }
+    .sim-suggestions {
+      position: absolute;
+      top: calc(100% - 4px);
+      left: 0;
+      right: 0;
+      z-index: 20;
+      background: var(--white);
+      border: 1.5px solid var(--grey-300);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+      display: none;
+    }
+    .sim-suggestions.open { display: block; }
+    .sim-suggestion-item {
+      padding: 10px 14px;
+      font-size: 13px;
+      cursor: pointer;
+      border-bottom: 1px solid var(--grey-100);
+    }
+    .sim-suggestion-item:last-child { border-bottom: none; }
+    .sim-suggestion-item:hover, .sim-suggestion-item.active {
+      background: var(--yellow-soft);
+    }
+    .sim-distance-status {
+      font-size: 12px;
+      color: var(--grey-500);
+      margin-top: 2px;
+    }
+    .sim-distance-status.ok { color: #1a7d3c; font-weight: 600; }
+    .sim-distance-status.err { color: #b3261e; }
+    .sim-manual-link {
+      font-size: 12px;
+      color: var(--grey-700);
+      text-decoration: underline;
+      margin-top: 6px;
+      align-self: flex-start;
+    }
+    .sim-manual-wrap {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--grey-300);
+    }
+    .sim-hint {
+      font-size: 12px;
+      color: var(--grey-500);
+      line-height: 1.5;
+    }
     .sim-checkbox {
       display: flex;
       align-items: center;
@@ -830,7 +885,7 @@
       overflow: hidden;
     }
     .booking::before {
-      content: 'FORS';
+      content: 'FORS TAXI';
       position: absolute;
       top: 50%;
       right: -5%;
@@ -1142,8 +1197,8 @@
   <!-- ====== NAVIGATION ====== -->
   <nav class="nav" id="nav">
     <div class="container nav-inner">
-      <a href="#" class="nav-logo" aria-label="FORS Taxi">
-        <img src="img/logo-fors-blanc.png" alt="FORS" />
+      <a href="#" class="nav-logo" aria-label="FORS TAXI">
+        <img src="img/logo-fors-blanc.png" alt="FORS TAXI" />
       </a>
       <ul class="nav-links">
         <li><a href="#experience">Accompagnement</a></li>
@@ -1212,9 +1267,9 @@
   <section class="section section-light reveal" id="experience">
     <div class="container">
       <div class="section-head">
-        <span class="section-eyebrow">L'accompagnement FORS</span>
+        <span class="section-eyebrow">L'accompagnement FORS TAXI</span>
         <h2>Un trajet médical pensé comme un <span class="accent">soin</span>.</h2>
-        <p>Chez FORS, chaque trajet est traité avec la même exigence : un véhicule confortable, un chauffeur formé à l'accompagnement de patients, et la promesse silencieuse d'arriver à l'heure, sans stress.</p>
+        <p>Chez FORS TAXI, chaque trajet est traité avec la même exigence : un véhicule confortable, un chauffeur formé à l'accompagnement de patients, et la promesse silencieuse d'arriver à l'heure, sans stress.</p>
       </div>
 
       <div class="pillars">
@@ -1357,10 +1412,26 @@
         <div class="sim-controls">
           <div class="sim-field">
             <div class="sim-field-label">
-              <span>Distance (aller)</span>
+              <span>Trajet</span>
               <span class="sim-field-value" id="simDistanceVal">20 km</span>
             </div>
-            <input type="range" id="simDistance" min="1" max="150" value="20" step="1" />
+            <div class="sim-address">
+              <input type="text" id="simFrom" class="sim-number sim-address-input" placeholder="Adresse de départ" autocomplete="off" />
+              <div class="sim-suggestions" id="simFromSuggestions"></div>
+            </div>
+            <div class="sim-address">
+              <input type="text" id="simTo" class="sim-number sim-address-input" placeholder="Adresse d'arrivée (hôpital, clinique…)" autocomplete="off" />
+              <div class="sim-suggestions" id="simToSuggestions"></div>
+            </div>
+            <div class="sim-distance-status" id="simDistanceStatus">Renseignez les deux adresses pour un calcul automatique de la distance.</div>
+            <div class="sim-distance-status" id="simApproachStatus">Trajet d'approche depuis Villieu-Loyes-Mollon (commune de rattachement) : renseignez l'adresse de départ.</div>
+            <button type="button" class="sim-manual-link" id="simManualToggle">Saisir les distances moi-même</button>
+            <div class="sim-manual-wrap" id="simManualWrap" style="display:none;">
+              <div class="sim-field-label"><span>Distance du trajet</span></div>
+              <input type="range" id="simDistance" min="1" max="150" value="20" step="1" />
+              <div class="sim-field-label" style="margin-top:12px;"><span>Distance d'approche (Villieu-Loyes-Mollon → départ)</span></div>
+              <input type="range" id="simApproachManual" min="0" max="80" value="0" step="1" />
+            </div>
           </div>
 
           <div class="sim-field">
@@ -1369,14 +1440,7 @@
               <button type="button" class="sim-toggle-btn active" data-value="aller">Aller simple</button>
               <button type="button" class="sim-toggle-btn" data-value="allerretour">Aller-retour</button>
             </div>
-          </div>
-
-          <div class="sim-field" id="simReturnField">
-            <span class="sim-field-label"><span>Après vous avoir déposé, le taxi…</span></span>
-            <div class="sim-toggle" id="simReturnType">
-              <button type="button" class="sim-toggle-btn active" data-value="vide">Repart à vide</button>
-              <button type="button" class="sim-toggle-btn" data-value="charge">Repart en charge</button>
-            </div>
+            <div class="sim-hint" id="simTripHint">Trajet aller simple : le taxi repart à vide après vous avoir déposé (tarif C ou D).</div>
           </div>
 
           <div class="sim-field">
@@ -1449,7 +1513,7 @@
         <div class="zone-text">
           <span class="section-eyebrow">Zone desservie</span>
           <h2>De la Plaine de l'Ain<br />à <span class="accent">Lyon &amp; Genève</span>.</h2>
-          <p style="font-size: 17px; color: rgba(255,255,255,0.7); margin-top: 16px;">Basé au cœur de la Plaine de l'Ain, FORS accompagne ses patients vers les centres de soins du département, de la métropole lyonnaise et au-delà.</p>
+          <p style="font-size: 17px; color: rgba(255,255,255,0.7); margin-top: 16px;">Basé au cœur de la Plaine de l'Ain, FORS TAXI accompagne ses patients vers les centres de soins du département, de la métropole lyonnaise et au-delà.</p>
 
           <ul class="zone-cities">
             <li>
@@ -1604,10 +1668,10 @@
         </div>
 
         <div class="about-content">
-          <span class="section-eyebrow">L'homme derrière FORS</span>
+          <span class="section-eyebrow">L'homme derrière FORS TAXI</span>
           <h2>Un seul chauffeur,<br />une seule <span class="accent">parole donnée</span>.</h2>
           <p>
-            Thomas Houmeur a fondé FORS avec une conviction simple : un trajet médical bien accompagné, c'est un soin de moins à gérer pour le patient. Pas de centrale, pas d'algorithme, pas de chauffeur différent à chaque fois. Vous réservez avec Thomas, c'est Thomas qui vient.
+            Thomas Houmeur a fondé FORS TAXI avec une conviction simple : un trajet médical bien accompagné, c'est un soin de moins à gérer pour le patient. Pas de centrale, pas d'algorithme, pas de chauffeur différent à chaque fois. Vous réservez avec Thomas, c'est Thomas qui vient.
           </p>
           <p>
             Chauffeur professionnel conventionné pour le transport de patients, formé à l'accompagnement et à l'accueil des personnes en soin, il met son exigence au service de chaque trajet, qu'il s'agisse d'une séance de chimiothérapie à 7h du matin ou d'un retour de dialyse tardif.
@@ -1625,7 +1689,7 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <img src="img/logo-fors-blanc.png" alt="FORS" />
+          <img src="img/logo-fors-blanc.png" alt="FORS TAXI" />
           <p>Transport médical assis conventionné en BYD Seal U. Plaine de l'Ain, Lyon, Genève et région.</p>
         </div>
 
@@ -1713,7 +1777,7 @@
       };
 
       const message =
-        `Bonjour Thomas,\n\nDemande de réservation FORS :\n\n` +
+        `Bonjour Thomas,\n\nDemande de réservation FORS TAXI :\n\n` +
         `👤 ${data.nom}\n` +
         `📞 ${data.tel}\n\n` +
         `📅 ${data.date} à ${data.heure}\n` +
@@ -1744,7 +1808,13 @@
     const SIM_BAGAGE = 2.00;
     const SIM_PASSAGER_SUPP = 4.00;
 
-    const simState = { tripType: 'aller', returnType: 'vide', time: 'jour' };
+    const SIM_BASE = { lat: 45.924558, lon: 5.224911, label: 'Villieu-Loyes-Mollon' };
+
+    const simState = { tripType: 'aller', time: 'jour' };
+    let simDistanceKm = 20;
+    let simDistanceSource = 'manual';
+    let simApproachKm = 0;
+    let simApproachSource = 'manual';
 
     function simFormatEuro(n) {
       return n.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
@@ -1763,8 +1833,122 @@
       });
     }
 
+    function simDebounce(fn, delay) {
+      let t;
+      return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), delay); };
+    }
+
+    async function simSearchAddress(query) {
+      try {
+        const res = await fetch(`https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(query)}&limit=5`);
+        if (!res.ok) throw new Error('geocode failed');
+        const data = await res.json();
+        return data.features || [];
+      } catch (err) {
+        return null;
+      }
+    }
+
+    function simSetupAddressField(inputId, suggestionsId, onSelect) {
+      const input = document.getElementById(inputId);
+      const box = document.getElementById(suggestionsId);
+      if (!input || !box) return;
+
+      const runSearch = simDebounce(async () => {
+        const query = input.value.trim();
+        input.dataset.lat = '';
+        input.dataset.lon = '';
+        if (query.length < 3) { box.classList.remove('open'); box.innerHTML = ''; return; }
+
+        const features = await simSearchAddress(query);
+        if (features === null) {
+          box.innerHTML = '<div class="sim-suggestion-item">Recherche indisponible, réessayez</div>';
+          box.classList.add('open');
+          return;
+        }
+        if (!features.length) {
+          box.innerHTML = '<div class="sim-suggestion-item">Aucune adresse trouvée (couverture France)</div>';
+          box.classList.add('open');
+          return;
+        }
+        box.innerHTML = features.map((f, i) => `<div class="sim-suggestion-item" data-i="${i}">${f.properties.label}</div>`).join('');
+        box.classList.add('open');
+        box.querySelectorAll('.sim-suggestion-item[data-i]').forEach(item => {
+          item.addEventListener('click', () => {
+            const f = features[parseInt(item.dataset.i, 10)];
+            input.value = f.properties.label;
+            input.dataset.lat = f.geometry.coordinates[1];
+            input.dataset.lon = f.geometry.coordinates[0];
+            box.classList.remove('open');
+            box.innerHTML = '';
+            if (onSelect) onSelect();
+          });
+        });
+      }, 400);
+
+      input.addEventListener('input', runSearch);
+      document.addEventListener('click', (e) => {
+        if (e.target !== input && !box.contains(e.target)) box.classList.remove('open');
+      });
+    }
+
+    async function simTryComputeRoute() {
+      const from = document.getElementById('simFrom');
+      const to = document.getElementById('simTo');
+      const status = document.getElementById('simDistanceStatus');
+      if (!from.dataset.lat || !to.dataset.lat) return;
+
+      status.textContent = "Calcul de l'itinéraire…";
+      status.className = 'sim-distance-status';
+
+      try {
+        const url = `https://router.project-osrm.org/route/v1/driving/${from.dataset.lon},${from.dataset.lat};${to.dataset.lon},${to.dataset.lat}?overview=false`;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('routing failed');
+        const data = await res.json();
+        if (!data.routes || !data.routes.length) throw new Error('no route');
+
+        simDistanceKm = Math.round((data.routes[0].distance / 1000) * 10) / 10;
+        simDistanceSource = 'route';
+        status.textContent = `Distance calculée par itinéraire routier : ${simDistanceKm} km`;
+        status.className = 'sim-distance-status ok';
+        document.getElementById('simDistance').value = Math.min(150, Math.max(1, Math.round(simDistanceKm)));
+        simCalculate();
+      } catch (err) {
+        status.textContent = "Calcul automatique indisponible, indiquez la distance manuellement ci-dessous.";
+        status.className = 'sim-distance-status err';
+      }
+    }
+
+    async function simTryComputeApproach() {
+      const from = document.getElementById('simFrom');
+      const status = document.getElementById('simApproachStatus');
+      if (!from.dataset.lat) return;
+
+      status.textContent = "Calcul du trajet d'approche…";
+      status.className = 'sim-distance-status';
+
+      try {
+        const url = `https://router.project-osrm.org/route/v1/driving/${SIM_BASE.lon},${SIM_BASE.lat};${from.dataset.lon},${from.dataset.lat}?overview=false`;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('routing failed');
+        const data = await res.json();
+        if (!data.routes || !data.routes.length) throw new Error('no route');
+
+        simApproachKm = Math.round((data.routes[0].distance / 1000) * 10) / 10;
+        simApproachSource = 'route';
+        status.textContent = `Approche ${SIM_BASE.label} → départ : ${simApproachKm} km`;
+        status.className = 'sim-distance-status ok';
+        document.getElementById('simApproachManual').value = Math.min(80, Math.round(simApproachKm));
+        simCalculate();
+      } catch (err) {
+        status.textContent = "Calcul de l'approche indisponible, indiquez-la manuellement ci-dessous.";
+        status.className = 'sim-distance-status err';
+      }
+    }
+
     function simCalculate() {
-      const distance = parseFloat(document.getElementById('simDistance').value);
+      const distance = simDistanceKm;
       const wait = parseFloat(document.getElementById('simWait').value);
       const passengers = parseInt(document.getElementById('simPassengers').value, 10);
       const luggage = parseInt(document.getElementById('simLuggage').value, 10);
@@ -1777,17 +1961,14 @@
       document.getElementById('simLuggageVal').textContent = luggage;
 
       const isRoundTrip = simState.tripType === 'allerretour';
-      document.getElementById('simReturnField').style.display = isRoundTrip ? 'none' : 'flex';
       document.getElementById('simWaitField').style.display = isRoundTrip ? 'flex' : 'none';
+      document.getElementById('simTripHint').textContent = isRoundTrip
+        ? 'Trajet aller-retour : course continue, tarif retour en charge (A ou B).'
+        : 'Trajet aller simple : le taxi repart à vide après vous avoir déposé (tarif C ou D).';
 
-      let tariffCode;
-      if (isRoundTrip) {
-        tariffCode = simState.time === 'jour' ? 'A' : 'B';
-      } else if (simState.returnType === 'vide') {
-        tariffCode = simState.time === 'jour' ? 'C' : 'D';
-      } else {
-        tariffCode = simState.time === 'jour' ? 'A' : 'B';
-      }
+      const tariffCode = isRoundTrip
+        ? (simState.time === 'jour' ? 'A' : 'B')
+        : (simState.time === 'jour' ? 'C' : 'D');
 
       let rate = SIM_TARIFS[tariffCode].rate;
       if (snow) {
@@ -1801,7 +1982,11 @@
       const luggageCost = luggage * SIM_BAGAGE;
       const passengerCost = Math.max(0, passengers - 4) * SIM_PASSAGER_SUPP;
 
-      const subtotal = SIM_PRISE_EN_CHARGE + kmCost + waitCost + luggageCost + passengerCost;
+      const approachTariffCode = simState.time === 'jour' ? 'A' : 'B';
+      const approachRate = SIM_TARIFS[approachTariffCode].rate;
+      const approachCost = simApproachKm * approachRate;
+
+      const subtotal = SIM_PRISE_EN_CHARGE + approachCost + kmCost + waitCost + luggageCost + passengerCost;
       const floorApplied = subtotal < SIM_TARIF_MINIMUM;
       const courseTotal = Math.max(subtotal, SIM_TARIF_MINIMUM);
       const total = courseTotal + toll;
@@ -1811,6 +1996,7 @@
 
       const rows = [];
       rows.push([`Prise en charge`, simFormatEuro(SIM_PRISE_EN_CHARGE)]);
+      if (simApproachKm > 0) rows.push([`Approche ${SIM_BASE.label} → départ · ${simApproachKm} km × ${approachRate.toFixed(2)} €/km (Tarif ${approachTariffCode})`, simFormatEuro(approachCost)]);
       rows.push([`Trajet · ${totalDistance} km × ${rate.toFixed(2)} €/km`, simFormatEuro(kmCost)]);
       if (isRoundTrip && wait > 0) rows.push([`Attente sur place · ${wait} min`, simFormatEuro(waitCost)]);
       if (luggage > 0) rows.push([`Bagages supplémentaires · ${luggage} × 2 €`, simFormatEuro(luggageCost)]);
@@ -1824,13 +2010,54 @@
     }
 
     simSetupToggle('simTripType', v => simState.tripType = v);
-    simSetupToggle('simReturnType', v => simState.returnType = v);
     simSetupToggle('simTime', v => simState.time = v);
 
-    ['simDistance', 'simWait', 'simPassengers', 'simLuggage', 'simSnow', 'simToll'].forEach(id => {
+    ['simWait', 'simPassengers', 'simLuggage', 'simSnow', 'simToll'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.addEventListener('input', simCalculate);
     });
+
+    const simDistanceSlider = document.getElementById('simDistance');
+    if (simDistanceSlider) {
+      simDistanceSlider.addEventListener('input', (e) => {
+        simDistanceSource = 'manual';
+        simDistanceKm = parseFloat(e.target.value);
+        simCalculate();
+      });
+    }
+
+    const simApproachManual = document.getElementById('simApproachManual');
+    if (simApproachManual) {
+      simApproachManual.addEventListener('input', (e) => {
+        simApproachSource = 'manual';
+        simApproachKm = parseFloat(e.target.value);
+        simCalculate();
+      });
+    }
+
+    const simManualToggle = document.getElementById('simManualToggle');
+    const simManualWrap = document.getElementById('simManualWrap');
+    if (simManualToggle && simManualWrap) {
+      simManualToggle.addEventListener('click', () => {
+        const isHidden = simManualWrap.style.display === 'none';
+        simManualWrap.style.display = isHidden ? 'block' : 'none';
+        simManualToggle.textContent = isHidden ? 'Utiliser la recherche d\'adresse' : 'Saisir les distances moi-même';
+        if (isHidden) {
+          simDistanceSource = 'manual';
+          simApproachSource = 'manual';
+          simDistanceKm = parseFloat(simDistanceSlider.value);
+          simApproachKm = parseFloat(simApproachManual.value);
+          document.getElementById('simDistanceStatus').textContent = 'Distance de trajet saisie manuellement.';
+          document.getElementById('simDistanceStatus').className = 'sim-distance-status';
+          document.getElementById('simApproachStatus').textContent = 'Distance d\'approche saisie manuellement.';
+          document.getElementById('simApproachStatus').className = 'sim-distance-status';
+          simCalculate();
+        }
+      });
+    }
+
+    simSetupAddressField('simFrom', 'simFromSuggestions', () => { simTryComputeApproach(); simTryComputeRoute(); });
+    simSetupAddressField('simTo', 'simToSuggestions', () => simTryComputeRoute());
 
     if (document.getElementById('simDistance')) simCalculate();
   </script>
