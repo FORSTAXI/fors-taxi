@@ -71,9 +71,28 @@
     }
 
     /* ---------- NAV ---------- */
-    .nav {
+    .top-bar {
       position: fixed;
       top: 0; left: 0; right: 0;
+      z-index: 101;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--black);
+      border-bottom: 1px solid rgba(255, 222, 89, 0.15);
+    }
+    .top-bar span {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--yellow);
+      text-align: center;
+      padding: 0 16px;
+    }
+    .nav {
+      position: fixed;
+      top: 34px; left: 0; right: 0;
       z-index: 100;
       padding: 18px 0;
       transition: all 0.4s var(--ease);
@@ -172,7 +191,7 @@
       display: flex;
       align-items: center;
       overflow: hidden;
-      padding: 120px 0 80px;
+      padding: 154px 0 80px;
     }
     .hero-bg {
       position: absolute;
@@ -964,6 +983,13 @@
       color: rgba(255, 255, 255, 0.6);
       letter-spacing: 0.05em;
     }
+    .zone-photos {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+    .zone-photos .classic-photo { aspect-ratio: 4 / 3; }
 
     /* ---------- RÉSERVATION ---------- */
     .booking {
@@ -1273,6 +1299,7 @@
     /* ---------- RESPONSIVE ---------- */
     @media (max-width: 980px) {
       .vehicle, .zone, .booking-grid, .about, .classic { grid-template-columns: 1fr; gap: 48px; }
+      .zone-photos { grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 32px; }
       .pillars { grid-template-columns: repeat(2, 1fr); }
       .pillar { border-right: none; border-bottom: 1px solid var(--grey-100); }
       .pillar:nth-child(2n) { border-right: none; }
@@ -1283,6 +1310,8 @@
     }
     @media (max-width: 720px) {
       .section { padding: 80px 0; }
+      .top-bar span { font-size: 10px; letter-spacing: 0.02em; }
+      .zone-photos { grid-template-columns: 1fr; }
       .nav-links { display: none; }
       .nav-burger { display: flex; }
       .nav.menu-open .nav-links {
@@ -1311,6 +1340,11 @@
   </style>
 </head>
 <body>
+
+  <!-- ====== BANDEAU ADS ====== -->
+  <div class="top-bar">
+    <span>ADS de rattachement n°1 · Villieu-Loyes-Mollon</span>
+  </div>
 
   <!-- ====== NAVIGATION ====== -->
   <nav class="nav" id="nav">
@@ -1724,6 +1758,30 @@
               <strong>~1h30</strong>
               <span>Genève</span>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="zone-photos">
+        <div class="classic-photo">
+          <img src="img/perouges-ain.jpg" alt="Pérouges, cité médiévale de la Plaine de l'Ain" />
+          <div class="classic-photo-content">
+            <span class="classic-tag">Plaine de l'Ain</span>
+            <h3>Pérouges</h3>
+          </div>
+        </div>
+        <div class="classic-photo">
+          <img src="img/lyon-night.jpg" alt="Lyon, basilique de Fourvière" />
+          <div class="classic-photo-content">
+            <span class="classic-tag">Métropole</span>
+            <h3>Lyon</h3>
+          </div>
+        </div>
+        <div class="classic-photo">
+          <img src="img/geneva-jetdeau.jpg" alt="Genève, le Jet d'Eau" />
+          <div class="classic-photo-content">
+            <span class="classic-tag">International</span>
+            <h3>Genève</h3>
           </div>
         </div>
       </div>
