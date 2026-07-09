@@ -594,6 +594,69 @@
       padding: 6px 12px;
       border-radius: 999px;
     }
+    .services-footnote {
+      margin-top: 28px;
+      font-size: 13px;
+      color: var(--grey-500);
+    }
+
+    /* ---------- TAXI CLASSIQUE ---------- */
+    .classic {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 48px;
+      margin-top: 16px;
+      align-items: center;
+    }
+    .classic-photos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .classic-photo {
+      position: relative;
+      aspect-ratio: 3 / 4;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .classic-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .classic-photo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.25) 50%, rgba(10,10,10,0.05) 100%);
+      pointer-events: none;
+    }
+    .classic-photo-content {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 20px;
+      z-index: 2;
+      color: var(--white);
+    }
+    .classic-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 8px;
+      padding: 4px 10px;
+      border: 1px solid rgba(255, 222, 89, 0.4);
+      border-radius: 999px;
+      background: rgba(10, 10, 10, 0.4);
+      backdrop-filter: blur(8px);
+    }
+    .classic-photo-content h3 {
+      font-family: var(--font-display);
+      font-size: 19px;
+      font-weight: 700;
+    }
 
     /* ---------- SIMULATEUR ---------- */
     .sim {
@@ -1209,7 +1272,7 @@
 
     /* ---------- RESPONSIVE ---------- */
     @media (max-width: 980px) {
-      .vehicle, .zone, .booking-grid, .about { grid-template-columns: 1fr; gap: 48px; }
+      .vehicle, .zone, .booking-grid, .about, .classic { grid-template-columns: 1fr; gap: 48px; }
       .pillars { grid-template-columns: repeat(2, 1fr); }
       .pillar { border-right: none; border-bottom: 1px solid var(--grey-100); }
       .pillar:nth-child(2n) { border-right: none; }
@@ -1260,11 +1323,12 @@
         <li><a href="#experience">Accompagnement</a></li>
         <li><a href="#vehicule">Véhicule</a></li>
         <li><a href="#services">Trajets médicaux</a></li>
+        <li><a href="#classique">Taxi classique</a></li>
         <li><a href="#simulateur">Simulateur</a></li>
         <li><a href="#zone">Zone</a></li>
         <li><a href="#about">À propos</a></li>
       </ul>
-      <a href="#reservation" class="nav-cta">Réserver</a>
+      <a href="#contact" class="nav-cta">Contact</a>
       <button class="nav-burger" id="navBurger" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
@@ -1281,11 +1345,11 @@
         <span class="accent">notre priorité.</span>
       </h1>
       <p class="hero-sub">
-        Transport médical assis conventionné vers vos séances de <strong>radiothérapie</strong>, <strong>chimiothérapie</strong>, <strong>dialyse</strong> et tous vos rendez-vous médicaux. Prise en charge CPAM, même chauffeur à chaque trajet, au départ de la <strong>Plaine de l'Ain</strong>.
+        Transport médical assis conventionné vers vos séances de <strong>radiothérapie</strong>, <strong>chimiothérapie</strong>, <strong>dialyse</strong>, hospitalisations et tous vos rendez-vous médicaux. Avec un <strong>bon de transport</strong> de votre médecin, la prise en charge par l'Assurance Maladie est possible sur l'ensemble de ces trajets, au départ de la <strong>Plaine de l'Ain</strong>.
       </p>
       <div class="hero-ctas">
-        <a href="#reservation" class="btn btn-primary">
-          Réserver un trajet médical
+        <a href="#contact" class="btn btn-primary">
+          Nous contacter
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
         <a href="tel:+33650225071" class="btn btn-ghost">
@@ -1296,8 +1360,8 @@
 
       <div class="hero-stats">
         <div class="hero-stat">
-          <span class="hero-stat-num">100%</span>
-          <span class="hero-stat-label">Électrique</span>
+          <span class="hero-stat-num">SUV</span>
+          <span class="hero-stat-label">Hybride</span>
         </div>
         <div class="hero-stat">
           <span class="hero-stat-num">24/7</span>
@@ -1333,8 +1397,8 @@
           <div class="pillar-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
           </div>
-          <h3>100% électrique</h3>
-          <p>Une BYD Seal U silencieuse et propre. Zéro émission, une conduite en douceur adaptée à votre état de santé.</p>
+          <h3>SUV hybride</h3>
+          <p>Une BYD Seal U hybride, silencieuse et confortable. Faibles émissions, une conduite en douceur adaptée à votre état de santé.</p>
         </div>
         <div class="pillar">
           <div class="pillar-icon">
@@ -1372,7 +1436,7 @@
 
         <div class="vehicle-content">
           <span class="section-eyebrow">Le véhicule</span>
-          <h2>Silence électrique,<br /><span class="accent">confort adapté.</span></h2>
+          <h2>SUV hybride,<br /><span class="accent">confort adapté.</span></h2>
           <p>
             Notre BYD Seal U vous accueille dans un espace pensé pour votre confort : sièges chauffants, climatisation à double zone, accès Wi-Fi, prises USB-C et chargeurs sans fil. Une cabine silencieuse et apaisante, idéale après une séance de traitement.
           </p>
@@ -1387,8 +1451,8 @@
               <span>Coffre · Bagages cabine longue distance</span>
             </div>
             <div class="vehicle-spec">
-              <strong>0 émission</strong>
-              <span>Roulage 100% électrique</span>
+              <strong>Hybride</strong>
+              <span>SUV essence-électrique</span>
             </div>
             <div class="vehicle-spec">
               <strong>Wi-Fi</strong>
@@ -1451,6 +1515,57 @@
           <p>Transferts vers les centres de référence à Lyon, Genève ou ailleurs en région.</p>
           <span class="price-tag">Sur devis</span>
         </article>
+      </div>
+
+      <p class="services-footnote">* Sur présentation d'un bon de transport prescrit par votre médecin. Sans bon de transport, un devis personnalisé est proposé.</p>
+    </div>
+  </section>
+
+  <!-- ====== TAXI CLASSIQUE ====== -->
+  <section class="section section-dark reveal" id="classique">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-eyebrow">Aussi disponible</span>
+        <h2>Un taxi classique<br />pour tous vos <span class="accent">autres trajets</span>.</h2>
+        <p>En dehors des trajets médicaux, FORS TAXI reste un taxi conventionné pour vos déplacements du quotidien : gares, aéroports, longue distance.</p>
+      </div>
+
+      <div class="classic">
+        <div class="classic-photos">
+          <div class="classic-photo">
+            <img src="img/airport-terminal.jpg" alt="Aéroport Lyon Saint-Exupéry" />
+            <div class="classic-photo-content">
+              <span class="classic-tag">Aéroport</span>
+              <h3>Lyon Saint-Exupéry</h3>
+            </div>
+          </div>
+          <div class="classic-photo">
+            <img src="img/lyon-night.jpg" alt="Lyon, Fourvière de nuit" />
+            <div class="classic-photo-content">
+              <span class="classic-tag">Métropole</span>
+              <h3>Lyon</h3>
+            </div>
+          </div>
+        </div>
+
+        <ul class="zone-cities">
+          <li>
+            <span class="city">Gares</span>
+            <span class="detail">Lyon Part-Dieu · Perrache · Bourg-en-Bresse · Ambérieu</span>
+          </li>
+          <li>
+            <span class="city">Aéroports</span>
+            <span class="detail">Lyon Saint-Exupéry · Genève Cointrin</span>
+          </li>
+          <li>
+            <span class="city">Longue distance</span>
+            <span class="detail">Paris · Annecy · Chamonix · et au-delà</span>
+          </li>
+          <li>
+            <span class="city">Événements &amp; courses pro</span>
+            <span class="detail">Mise à disposition, déplacements professionnels</span>
+          </li>
+        </ul>
       </div>
     </div>
   </section>
@@ -1535,7 +1650,7 @@
           <div class="sim-field">
             <label class="sim-checkbox">
               <input type="checkbox" id="simSnow" />
-              <span>❄️ Route enneigée / verglacée (+50% plafonné au tarif nuit)</span>
+              <span>❄️ Route enneigée / verglacée (bascule d'office sur le tarif nuit B/D)</span>
             </label>
           </div>
 
@@ -1615,13 +1730,13 @@
     </div>
   </section>
 
-  <!-- ====== RÉSERVATION ====== -->
-  <section class="booking reveal" id="reservation">
+  <!-- ====== CONTACT ====== -->
+  <section class="booking reveal" id="contact">
     <div class="container booking-grid">
       <div class="booking-head">
-        <span class="section-eyebrow" style="color: var(--black); opacity: 0.6; border-color: var(--black);">Réservation</span>
-        <h2>Réservez votre trajet en quelques secondes.</h2>
-        <p>Remplissez le formulaire : votre demande est envoyée directement sur WhatsApp pour une confirmation immédiate. Réservation par téléphone également possible.</p>
+        <span class="section-eyebrow" style="color: var(--black); opacity: 0.6; border-color: var(--black);">Contact</span>
+        <h2>Contactez-nous, on organise votre trajet ensemble.</h2>
+        <p>Remplissez le formulaire : votre demande est envoyée directement sur WhatsApp. Thomas vous rappelle pour organiser la date et l'heure qui vous conviennent.</p>
 
         <div class="booking-quickactions">
           <a href="tel:+33650225071" class="quick-action">
@@ -1636,8 +1751,8 @@
       </div>
 
       <form class="booking-form" id="bookingForm" onsubmit="return submitToWhatsApp(event)">
-        <h3>Demande de trajet médical</h3>
-        <p>Réponse rapide via WhatsApp ou téléphone.</p>
+        <h3>Demande de contact</h3>
+        <p>Thomas vous rappelle pour organiser le trajet, la date et l'heure.</p>
 
         <div class="form-row">
           <div class="form-field">
@@ -1647,17 +1762,6 @@
           <div class="form-field">
             <label for="phone">Téléphone</label>
             <input type="tel" id="phone" name="phone" required placeholder="06 XX XX XX XX" />
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-field">
-            <label for="date">Date</label>
-            <input type="date" id="date" name="date" required />
-          </div>
-          <div class="form-field">
-            <label for="time">Heure</label>
-            <input type="time" id="time" name="time" required />
           </div>
         </div>
 
@@ -1673,16 +1777,7 @@
         </div>
 
         <div class="form-row">
-          <div class="form-field">
-            <label for="passengers">Passagers</label>
-            <select id="passengers" name="passengers">
-              <option>1 passager</option>
-              <option>2 passagers</option>
-              <option>3 passagers</option>
-              <option selected>4 passagers</option>
-            </select>
-          </div>
-          <div class="form-field">
+          <div class="form-field full">
             <label for="type">Type de trajet</label>
             <select id="type" name="type">
               <option>Radiothérapie</option>
@@ -1690,6 +1785,8 @@
               <option>Dialyse</option>
               <option>Consultation médicale</option>
               <option>Entrée / sortie d'hôpital</option>
+              <option>Gare</option>
+              <option>Aéroport</option>
               <option>Longue distance</option>
               <option>Autre</option>
             </select>
@@ -1698,8 +1795,8 @@
 
         <div class="form-row">
           <div class="form-field full">
-            <label for="notes">Notes (fauteuil roulant, déambulateur, accompagnant, etc.)</label>
-            <textarea id="notes" name="notes" placeholder="Information complémentaire si besoin"></textarea>
+            <label for="notes">Notes (date/heure souhaitées, fauteuil roulant, bon de transport, etc.)</label>
+            <textarea id="notes" name="notes" placeholder="Précisez ici vos disponibilités et toute information utile"></textarea>
           </div>
         </div>
 
@@ -1830,24 +1927,19 @@
       const data = {
         nom: f.name.value,
         tel: f.phone.value,
-        date: f.date.value,
-        heure: f.time.value,
         depart: f.from.value,
         arrivee: f.to.value,
-        passagers: f.passengers.value,
         type: f.type.value,
         notes: f.notes.value
       };
 
       const message =
-        `Bonjour Thomas,\n\nDemande de réservation FORS TAXI :\n\n` +
+        `Bonjour Thomas,\n\nDemande de contact FORS TAXI :\n\n` +
         `👤 ${data.nom}\n` +
         `📞 ${data.tel}\n\n` +
-        `📅 ${data.date} à ${data.heure}\n` +
         `📍 Départ : ${data.depart}\n` +
         `🏁 Arrivée : ${data.arrivee}\n\n` +
-        `Passagers : ${data.passagers}\n` +
-        `Type de course : ${data.type}\n` +
+        `Type de trajet : ${data.type}\n` +
         (data.notes ? `\nNotes : ${data.notes}` : '');
 
       const phoneNumber = '33650225071';
@@ -2028,15 +2120,13 @@
         ? 'Trajet aller-retour : course continue, tarif retour en charge (A ou B).'
         : 'Trajet aller simple : le taxi repart à vide après vous avoir déposé (tarif C ou D).';
 
-      const tariffCode = isRoundTrip
+      const baseTariffCode = isRoundTrip
         ? (simState.time === 'jour' ? 'A' : 'B')
         : (simState.time === 'jour' ? 'C' : 'D');
-
-      let rate = SIM_TARIFS[tariffCode].rate;
-      if (snow) {
-        const capRate = SIM_TARIFS[SIM_NIGHT_CAP[tariffCode]].rate;
-        rate = Math.min(rate * 1.5, capRate);
-      }
+      // Route enneigée/verglacée : le compteur est basculé d'office sur le tarif nuit
+      // correspondant (B ou D), sans calcul de majoration séparé (arrêté préfectoral, art. 3).
+      const tariffCode = snow ? SIM_NIGHT_CAP[baseTariffCode] : baseTariffCode;
+      const rate = SIM_TARIFS[tariffCode].rate;
 
       const totalDistance = isRoundTrip ? distance * 2 : distance;
       const kmCost = totalDistance * rate;
@@ -2044,7 +2134,7 @@
       const luggageCost = luggage * SIM_BAGAGE;
       const passengerCost = Math.max(0, passengers - 4) * SIM_PASSAGER_SUPP;
 
-      const approachTariffCode = simState.time === 'jour' ? 'A' : 'B';
+      const approachTariffCode = snow ? 'B' : (simState.time === 'jour' ? 'A' : 'B');
       const approachRate = SIM_TARIFS[approachTariffCode].rate;
       const approachCost = simApproachKm * approachRate;
 
@@ -2063,7 +2153,7 @@
       if (isRoundTrip && wait > 0) rows.push([`Attente sur place · ${wait} min`, simFormatEuro(waitCost)]);
       if (luggage > 0) rows.push([`Bagages supplémentaires · ${luggage} × 2 €`, simFormatEuro(luggageCost)]);
       if (passengers > 4) rows.push([`Passagers dès le 5ᵉ · ${passengers - 4} × 4 €`, simFormatEuro(passengerCost)]);
-      if (snow) rows.push([`❄️ Majoration neige/verglas`, 'incluse ci-dessus']);
+      if (snow) rows.push([`❄️ Route enneigée/verglacée : tarif nuit appliqué d'office`, `Tarif ${tariffCode}`]);
       if (floorApplied) rows.push([`Tarif plancher légal appliqué`, simFormatEuro(SIM_TARIF_MINIMUM)]);
       if (toll > 0) rows.push([`Péage autoroute`, simFormatEuro(toll)]);
 
