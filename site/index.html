@@ -431,6 +431,76 @@
       color: rgba(255, 255, 255, 0.65);
     }
 
+    /* ---------- CHOIX DU TRAJET ---------- */
+    .choix-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 16px;
+    }
+    .choix-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 36px;
+      border-radius: 24px;
+      background: var(--white);
+      border: 1.5px solid var(--grey-100);
+      transition: all 0.3s var(--ease);
+    }
+    .choix-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+      border-color: var(--yellow);
+    }
+    .choix-card-dark {
+      background: var(--black);
+      border-color: var(--black);
+    }
+    .choix-card-dark:hover { border-color: var(--yellow); }
+    .choix-card-dark p { color: rgba(255, 255, 255, 0.65); }
+    .choix-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: var(--yellow-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--black);
+    }
+    .choix-icon svg { width: 24px; height: 24px; }
+    .choix-card-dark .choix-icon {
+      background: rgba(255, 222, 89, 0.15);
+      color: var(--yellow);
+    }
+    .choix-card h3 {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 700;
+      margin-top: 4px;
+      color: var(--black);
+    }
+    .choix-card-dark h3 { color: var(--white); }
+    .choix-card p {
+      color: var(--grey-500);
+      font-size: 14px;
+      line-height: 1.6;
+      flex: 1;
+    }
+    .choix-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--black);
+      margin-top: 8px;
+    }
+    .choix-card-dark .choix-link { color: var(--yellow); }
+    .choix-link svg { width: 16px; height: 16px; transition: transform 0.2s var(--ease); }
+    .choix-card:hover .choix-link svg { transform: translateX(4px); }
+
     /* ---------- EXPÉRIENCE / PILLARS ---------- */
     .pillars {
       display: grid;
@@ -678,6 +748,25 @@
     }
 
     /* ---------- SIMULATEUR ---------- */
+    .sim-info {
+      background: var(--yellow-soft);
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin-top: 24px;
+      max-width: 720px;
+    }
+    .sim-info strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 15px;
+      margin-bottom: 6px;
+      color: var(--black);
+    }
+    .sim-info p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--grey-700);
+    }
     .sim {
       display: grid;
       grid-template-columns: 1.1fr 1fr;
@@ -892,6 +981,110 @@
       font-size: 11px;
       line-height: 1.6;
       color: rgba(255,255,255,0.4);
+    }
+
+    /* ---------- GRILLE TARIFAIRE ---------- */
+    .tariff-grid-wrap {
+      margin-top: 88px;
+      padding-top: 64px;
+      border-top: 1px solid var(--grey-100);
+    }
+    .tariff-title {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 3vw, 34px);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+    }
+    .tariff-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .tariff-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--black);
+      border-radius: 20px;
+      padding: 28px 20px;
+      text-align: center;
+    }
+    .tariff-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(255, 222, 89, 0.14), transparent 60%);
+    }
+    .tariff-letter {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--yellow);
+      color: var(--black);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 18px;
+    }
+    .tariff-rate {
+      position: relative;
+      z-index: 1;
+      display: block;
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--white);
+      margin-top: 14px;
+    }
+    .tariff-rate small {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .tariff-desc {
+      position: relative;
+      z-index: 1;
+      display: block;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.55);
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+    .tariff-extras {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .tariff-extra {
+      background: var(--grey-100);
+      border-radius: 14px;
+      padding: 16px 10px;
+      text-align: center;
+    }
+    .tariff-extra strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 16px;
+      color: var(--black);
+      margin-bottom: 4px;
+    }
+    .tariff-extra span {
+      display: block;
+      font-size: 11px;
+      color: var(--grey-500);
+      line-height: 1.3;
+    }
+    .tariff-source {
+      margin-top: 24px;
+      font-size: 12px;
+      color: var(--grey-500);
+      text-align: center;
     }
 
     /* ---------- ZONE ---------- */
@@ -1306,11 +1499,15 @@
       .services { grid-template-columns: repeat(2, 1fr); }
       .sim { grid-template-columns: 1fr; }
       .sim-result { position: static; }
+      .tariff-cards { grid-template-columns: repeat(2, 1fr); }
+      .tariff-extras { grid-template-columns: repeat(3, 1fr); }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
     }
     @media (max-width: 720px) {
       .section { padding: 80px 0; }
       .top-bar span { font-size: 10px; letter-spacing: 0.02em; }
+      .choix-grid { grid-template-columns: 1fr; }
+      .tariff-extras { grid-template-columns: repeat(2, 1fr); }
       .zone-photos { grid-template-columns: 1fr; }
       .nav-links { display: none; }
       .nav-burger { display: flex; }
@@ -1373,13 +1570,13 @@
   <header class="hero">
     <div class="hero-bg"></div>
     <div class="container hero-content">
-      <span class="hero-eyebrow">FORS TAXI · Transport médical conventionné · Plaine de l'Ain</span>
+      <span class="hero-eyebrow">FORS TAXI · Plaine de l'Ain · Lyon · Genève</span>
       <h1>
         Votre trajet,<br />
         <span class="accent">notre priorité.</span>
       </h1>
       <p class="hero-sub">
-        Transport médical assis conventionné vers vos séances de <strong>radiothérapie</strong>, <strong>chimiothérapie</strong>, <strong>dialyse</strong>, hospitalisations et tous vos rendez-vous médicaux. Avec un <strong>bon de transport</strong> de votre médecin, la prise en charge par l'Assurance Maladie est possible sur l'ensemble de ces trajets, au départ de la <strong>Plaine de l'Ain</strong>.
+        Un chauffeur unique pour tous vos déplacements : <strong>transport médical conventionné</strong> (radiothérapie, chimiothérapie, dialyse, hospitalisations) et <strong>taxi du quotidien</strong> (gares, aéroports, longue distance). Au départ de la <strong>Plaine de l'Ain</strong>.
       </p>
       <div class="hero-ctas">
         <a href="#contact" class="btn btn-primary">
@@ -1416,6 +1613,37 @@
       Découvrir
     </a>
   </header>
+
+  <!-- ====== CHOIX DU TRAJET ====== -->
+  <section class="section section-cream reveal" id="choix">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-eyebrow">Deux façons de voyager</span>
+        <h2>Quel trajet vous <span class="accent">amène</span> ?</h2>
+        <p>FORS TAXI, c'est deux activités complémentaires avec le même chauffeur et le même véhicule. Choisissez la vôtre.</p>
+      </div>
+
+      <div class="choix-grid">
+        <a href="#services" class="choix-card">
+          <span class="choix-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          </span>
+          <h3>Transport médical</h3>
+          <p>Radiothérapie, chimiothérapie, dialyse, hospitalisations, consultations. Prise en charge CPAM sur présentation d'un bon de transport.</p>
+          <span class="choix-link">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+
+        <a href="#classique" class="choix-card choix-card-dark">
+          <span class="choix-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17h14M5 17a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm14 0a2 2 0 1 0 4 0 2 2 0 0 0-4 0ZM5 17V9l2-5h10l2 5v8"/></svg>
+          </span>
+          <h3>Taxi du quotidien</h3>
+          <p>Gares, aéroports, longue distance, événements. Estimez votre trajet en un instant avec notre simulateur de tarif.</p>
+          <span class="choix-link">Découvrir + simulateur <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <!-- ====== EXPÉRIENCE ====== -->
   <section class="section section-light reveal" id="experience">
@@ -1613,6 +1841,11 @@
         <p>Simulation indicative basée sur l'arrêté préfectoral du 30 janvier 2026 fixant les tarifs de transport par taxi dans le département de l'Ain. Le montant définitif reste celui affiché au compteur homologué du véhicule.</p>
       </div>
 
+      <div class="sim-info">
+        <strong>💡 C'est quoi le « trajet d'approche » ?</strong>
+        <p>Avant de venir vous chercher, le taxi part de sa base à Villieu-Loyes-Mollon et roule jusqu'à votre adresse de départ. Ce trajet à vide est lui aussi facturé, comme le prévoit la réglementation : c'est le cas pour tous les taxis, pas seulement FORS TAXI. Renseignez simplement votre adresse de départ ci-dessous : le simulateur calcule cette distance et l'ajoute automatiquement à l'estimation.</p>
+      </div>
+
       <div class="sim">
         <div class="sim-controls">
           <div class="sim-field">
@@ -1707,6 +1940,48 @@
             Tarifs réglementaires 2026 : prise en charge 2,28 € · tarif horaire d'attente 30,84 €/h · tarif plancher légal 8,00 €. Simulation non contractuelle · source : arrêté préfectoral du 30/01/2026, préfecture de l'Ain.
           </div>
         </div>
+      </div>
+
+      <div class="tariff-grid-wrap">
+        <div class="section-head">
+          <span class="section-eyebrow">Grille tarifaire officielle</span>
+          <h3 class="tariff-title">Les tarifs, noir sur blanc.</h3>
+          <p>Tarifs réglementaires 2026 fixés par arrêté préfectoral pour le département de l'Ain. Ils s'appliquent à toutes les courses, médicales ou non.</p>
+        </div>
+
+        <div class="tariff-cards">
+          <div class="tariff-card">
+            <span class="tariff-letter">A</span>
+            <span class="tariff-rate">1,17 €<small>/km</small></span>
+            <span class="tariff-desc">Jour · retour en charge</span>
+          </div>
+          <div class="tariff-card">
+            <span class="tariff-letter">B</span>
+            <span class="tariff-rate">1,75 €<small>/km</small></span>
+            <span class="tariff-desc">Nuit, dim., férié · retour en charge</span>
+          </div>
+          <div class="tariff-card">
+            <span class="tariff-letter">C</span>
+            <span class="tariff-rate">2,34 €<small>/km</small></span>
+            <span class="tariff-desc">Jour · retour à vide</span>
+          </div>
+          <div class="tariff-card">
+            <span class="tariff-letter">D</span>
+            <span class="tariff-rate">3,50 €<small>/km</small></span>
+            <span class="tariff-desc">Nuit, dim., férié · retour à vide</span>
+          </div>
+        </div>
+
+        <div class="tariff-extras">
+          <div class="tariff-extra"><strong>2,28 €</strong><span>Prise en charge</span></div>
+          <div class="tariff-extra"><strong>30,84 €/h</strong><span>Tarif horaire d'attente</span></div>
+          <div class="tariff-extra"><strong>8,00 €</strong><span>Tarif minimum de course</span></div>
+          <div class="tariff-extra"><strong>+2 €</strong><span>Par bagage supplémentaire</span></div>
+          <div class="tariff-extra"><strong>+4 €</strong><span>Par passager dès le 5ᵉ</span></div>
+          <div class="tariff-extra"><strong>❄️ B / D</strong><span>Route enneigée ou verglacée</span></div>
+        </div>
+
+        <p class="tariff-source">Source : arrêté préfectoral du 30 janvier 2026, préfecture de l'Ain (n°01-2026-01-30-00014). Grille indicative, non contractuelle.</p>
       </div>
     </div>
   </section>
