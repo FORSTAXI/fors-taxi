@@ -569,6 +569,168 @@
       border-radius: 999px;
     }
 
+    /* ---------- SIMULATEUR ---------- */
+    .sim {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 32px;
+      margin-top: 16px;
+      align-items: start;
+    }
+    .sim-controls {
+      background: var(--grey-100);
+      border-radius: 24px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+    .sim-field {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .sim-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .sim-field-half { gap: 10px; }
+    .sim-field-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--grey-700);
+    }
+    .sim-field-value {
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: var(--black);
+      font-size: 15px;
+    }
+    .sim input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--grey-300);
+      outline: none;
+    }
+    .sim input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--black);
+      border: 3px solid var(--yellow);
+      cursor: pointer;
+    }
+    .sim input[type="range"]::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--black);
+      border: 3px solid var(--yellow);
+      cursor: pointer;
+    }
+    .sim-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .sim-toggle-btn {
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: var(--white);
+      border: 1.5px solid var(--grey-300);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--grey-700);
+      transition: all 0.2s var(--ease);
+      text-align: center;
+    }
+    .sim-toggle-btn.active {
+      background: var(--black);
+      border-color: var(--black);
+      color: var(--yellow);
+    }
+    .sim-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .sim-checkbox input { width: 18px; height: 18px; accent-color: var(--black); }
+    .sim-number {
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1.5px solid var(--grey-300);
+      background: var(--white);
+      font-family: inherit;
+      font-size: 14px;
+      width: 140px;
+    }
+    .sim-result {
+      background: var(--black);
+      color: var(--white);
+      border-radius: 24px;
+      padding: 36px;
+      position: sticky;
+      top: 110px;
+    }
+    .sim-result-tariff {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--yellow);
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+    }
+    .sim-result-amount {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 5vw, 56px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .sim-result-label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      margin-top: 8px;
+      margin-bottom: 24px;
+    }
+    .sim-breakdown {
+      list-style: none;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      padding-top: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .sim-breakdown li {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: rgba(255,255,255,0.75);
+    }
+    .sim-breakdown li strong { color: var(--white); font-weight: 600; }
+    .sim-disclaimer {
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      font-size: 11px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.4);
+    }
+
     /* ---------- ZONE ---------- */
     .zone {
       display: grid;
@@ -947,6 +1109,8 @@
       .pillar { border-right: none; border-bottom: 1px solid var(--grey-100); }
       .pillar:nth-child(2n) { border-right: none; }
       .services { grid-template-columns: repeat(2, 1fr); }
+      .sim { grid-template-columns: 1fr; }
+      .sim-result { position: static; }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
     }
     @media (max-width: 720px) {
@@ -985,6 +1149,7 @@
         <li><a href="#experience">Accompagnement</a></li>
         <li><a href="#vehicule">Véhicule</a></li>
         <li><a href="#services">Trajets médicaux</a></li>
+        <li><a href="#simulateur">Simulateur</a></li>
         <li><a href="#zone">Zone</a></li>
         <li><a href="#about">À propos</a></li>
       </ul>
@@ -1175,6 +1340,104 @@
           <p>Transferts vers les centres de référence à Lyon, Genève ou ailleurs en région.</p>
           <span class="price-tag">Sur devis</span>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== SIMULATEUR ====== -->
+  <section class="section section-light reveal" id="simulateur">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-eyebrow">Simulateur de tarif</span>
+        <h2>Estimez votre <span class="accent">course</span> en un instant.</h2>
+        <p>Simulation indicative basée sur l'arrêté préfectoral du 30 janvier 2026 fixant les tarifs de transport par taxi dans le département de l'Ain. Le montant définitif reste celui affiché au compteur homologué du véhicule.</p>
+      </div>
+
+      <div class="sim">
+        <div class="sim-controls">
+          <div class="sim-field">
+            <div class="sim-field-label">
+              <span>Distance (aller)</span>
+              <span class="sim-field-value" id="simDistanceVal">20 km</span>
+            </div>
+            <input type="range" id="simDistance" min="1" max="150" value="20" step="1" />
+          </div>
+
+          <div class="sim-field">
+            <span class="sim-field-label"><span>Type de trajet</span></span>
+            <div class="sim-toggle" id="simTripType">
+              <button type="button" class="sim-toggle-btn active" data-value="aller">Aller simple</button>
+              <button type="button" class="sim-toggle-btn" data-value="allerretour">Aller-retour</button>
+            </div>
+          </div>
+
+          <div class="sim-field" id="simReturnField">
+            <span class="sim-field-label"><span>Après vous avoir déposé, le taxi…</span></span>
+            <div class="sim-toggle" id="simReturnType">
+              <button type="button" class="sim-toggle-btn active" data-value="vide">Repart à vide</button>
+              <button type="button" class="sim-toggle-btn" data-value="charge">Repart en charge</button>
+            </div>
+          </div>
+
+          <div class="sim-field">
+            <span class="sim-field-label"><span>Horaire</span></span>
+            <div class="sim-toggle" id="simTime">
+              <button type="button" class="sim-toggle-btn active" data-value="jour">Jour · 7h–19h</button>
+              <button type="button" class="sim-toggle-btn" data-value="nuit">Nuit / dimanche / férié</button>
+            </div>
+          </div>
+
+          <div class="sim-field" id="simWaitField" style="display:none;">
+            <div class="sim-field-label">
+              <span>Attente sur place</span>
+              <span class="sim-field-value" id="simWaitVal">0 min</span>
+            </div>
+            <input type="range" id="simWait" min="0" max="180" value="0" step="5" />
+          </div>
+
+          <div class="sim-row">
+            <div class="sim-field sim-field-half">
+              <div class="sim-field-label">
+                <span>Passagers</span>
+                <span class="sim-field-value" id="simPassengersVal">1</span>
+              </div>
+              <input type="range" id="simPassengers" min="1" max="8" value="1" step="1" />
+            </div>
+            <div class="sim-field sim-field-half">
+              <div class="sim-field-label">
+                <span>Bagages suppl.</span>
+                <span class="sim-field-value" id="simLuggageVal">0</span>
+              </div>
+              <input type="range" id="simLuggage" min="0" max="5" value="0" step="1" />
+            </div>
+          </div>
+
+          <div class="sim-field">
+            <label class="sim-checkbox">
+              <input type="checkbox" id="simSnow" />
+              <span>❄️ Route enneigée / verglacée (+50% plafonné au tarif nuit)</span>
+            </label>
+          </div>
+
+          <div class="sim-field">
+            <div class="sim-field-label">
+              <span>Péage autoroute (optionnel)</span>
+            </div>
+            <input type="number" id="simToll" min="0" step="0.5" value="0" placeholder="0,00 €" class="sim-number" />
+          </div>
+        </div>
+
+        <div class="sim-result">
+          <span class="sim-result-tariff" id="simTariffBadge">Tarif A</span>
+          <div class="sim-result-amount" id="simTotal">0,00 €</div>
+          <div class="sim-result-label">Estimation indicative, suppléments inclus</div>
+
+          <ul class="sim-breakdown" id="simBreakdown"></ul>
+
+          <div class="sim-disclaimer">
+            Tarifs réglementaires 2026 : prise en charge 2,28 € · tarif horaire d'attente 30,84 €/h · tarif plancher légal 8,00 €. Simulation non contractuelle — source : arrêté préfectoral du 30/01/2026, préfecture de l'Ain.
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1466,6 +1729,110 @@
       window.open(url, '_blank');
       return false;
     }
+
+    // ---------- Simulateur de tarif (arrêté préfectoral Ain du 30/01/2026) ----------
+    const SIM_TARIFS = {
+      A: { rate: 1.17, label: 'jour, retour en charge' },
+      B: { rate: 1.75, label: 'nuit/dim./férié, retour en charge' },
+      C: { rate: 2.34, label: 'jour, retour à vide' },
+      D: { rate: 3.50, label: 'nuit/dim./férié, retour à vide' }
+    };
+    const SIM_NIGHT_CAP = { A: 'B', B: 'B', C: 'D', D: 'D' };
+    const SIM_PRISE_EN_CHARGE = 2.28;
+    const SIM_ATTENTE_PAR_MIN = 30.84 / 60;
+    const SIM_TARIF_MINIMUM = 8.00;
+    const SIM_BAGAGE = 2.00;
+    const SIM_PASSAGER_SUPP = 4.00;
+
+    const simState = { tripType: 'aller', returnType: 'vide', time: 'jour' };
+
+    function simFormatEuro(n) {
+      return n.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+    }
+
+    function simSetupToggle(groupId, onChange) {
+      const group = document.getElementById(groupId);
+      if (!group) return;
+      group.querySelectorAll('.sim-toggle-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          group.querySelectorAll('.sim-toggle-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          onChange(btn.dataset.value);
+          simCalculate();
+        });
+      });
+    }
+
+    function simCalculate() {
+      const distance = parseFloat(document.getElementById('simDistance').value);
+      const wait = parseFloat(document.getElementById('simWait').value);
+      const passengers = parseInt(document.getElementById('simPassengers').value, 10);
+      const luggage = parseInt(document.getElementById('simLuggage').value, 10);
+      const snow = document.getElementById('simSnow').checked;
+      const toll = parseFloat(document.getElementById('simToll').value) || 0;
+
+      document.getElementById('simDistanceVal').textContent = distance + ' km';
+      document.getElementById('simWaitVal').textContent = wait + ' min';
+      document.getElementById('simPassengersVal').textContent = passengers;
+      document.getElementById('simLuggageVal').textContent = luggage;
+
+      const isRoundTrip = simState.tripType === 'allerretour';
+      document.getElementById('simReturnField').style.display = isRoundTrip ? 'none' : 'flex';
+      document.getElementById('simWaitField').style.display = isRoundTrip ? 'flex' : 'none';
+
+      let tariffCode;
+      if (isRoundTrip) {
+        tariffCode = simState.time === 'jour' ? 'A' : 'B';
+      } else if (simState.returnType === 'vide') {
+        tariffCode = simState.time === 'jour' ? 'C' : 'D';
+      } else {
+        tariffCode = simState.time === 'jour' ? 'A' : 'B';
+      }
+
+      let rate = SIM_TARIFS[tariffCode].rate;
+      if (snow) {
+        const capRate = SIM_TARIFS[SIM_NIGHT_CAP[tariffCode]].rate;
+        rate = Math.min(rate * 1.5, capRate);
+      }
+
+      const totalDistance = isRoundTrip ? distance * 2 : distance;
+      const kmCost = totalDistance * rate;
+      const waitCost = isRoundTrip ? wait * SIM_ATTENTE_PAR_MIN : 0;
+      const luggageCost = luggage * SIM_BAGAGE;
+      const passengerCost = Math.max(0, passengers - 4) * SIM_PASSAGER_SUPP;
+
+      const subtotal = SIM_PRISE_EN_CHARGE + kmCost + waitCost + luggageCost + passengerCost;
+      const floorApplied = subtotal < SIM_TARIF_MINIMUM;
+      const courseTotal = Math.max(subtotal, SIM_TARIF_MINIMUM);
+      const total = courseTotal + toll;
+
+      document.getElementById('simTariffBadge').textContent = `Tarif ${tariffCode} · ${SIM_TARIFS[tariffCode].label}`;
+      document.getElementById('simTotal').textContent = simFormatEuro(total);
+
+      const rows = [];
+      rows.push([`Prise en charge`, simFormatEuro(SIM_PRISE_EN_CHARGE)]);
+      rows.push([`Trajet — ${totalDistance} km × ${rate.toFixed(2)} €/km`, simFormatEuro(kmCost)]);
+      if (isRoundTrip && wait > 0) rows.push([`Attente sur place — ${wait} min`, simFormatEuro(waitCost)]);
+      if (luggage > 0) rows.push([`Bagages supplémentaires — ${luggage} × 2 €`, simFormatEuro(luggageCost)]);
+      if (passengers > 4) rows.push([`Passagers dès le 5ᵉ — ${passengers - 4} × 4 €`, simFormatEuro(passengerCost)]);
+      if (snow) rows.push([`❄️ Majoration neige/verglas`, 'incluse ci-dessus']);
+      if (floorApplied) rows.push([`Tarif plancher légal appliqué`, simFormatEuro(SIM_TARIF_MINIMUM)]);
+      if (toll > 0) rows.push([`Péage autoroute`, simFormatEuro(toll)]);
+
+      const list = document.getElementById('simBreakdown');
+      list.innerHTML = rows.map(([label, value]) => `<li><span>${label}</span><strong>${value}</strong></li>`).join('');
+    }
+
+    simSetupToggle('simTripType', v => simState.tripType = v);
+    simSetupToggle('simReturnType', v => simState.returnType = v);
+    simSetupToggle('simTime', v => simState.time = v);
+
+    ['simDistance', 'simWait', 'simPassengers', 'simLuggage', 'simSnow', 'simToll'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('input', simCalculate);
+    });
+
+    if (document.getElementById('simDistance')) simCalculate();
   </script>
 
 </body>
