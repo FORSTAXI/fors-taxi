@@ -10,11 +10,23 @@
   <meta property="og:description" content="Transport médical assis conventionné en BYD Seal U. Plaine de l'Ain, Lyon, région genevoise." />
   <meta property="og:type" content="website" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-
   <style>
+    /* Polices auto-hébergées (aucune requête vers Google Fonts, aucun cookie tiers) */
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 300 900;
+      font-display: swap;
+      src: url('fonts/inter-variable-latin.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Space Grotesk';
+      font-style: normal;
+      font-weight: 500 700;
+      font-display: swap;
+      src: url('fonts/space-grotesk-variable-latin.woff2') format('woff2');
+    }
+
     /* =========================
        FORS TAXI · Vitrine v1
        Couleurs officielles :
@@ -80,6 +92,11 @@
       justify-content: space-between;
       gap: 32px;
     }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
     .nav-logo img {
       height: 52px;
       width: auto;
@@ -87,6 +104,15 @@
     }
     .nav.scrolled .nav-logo img {
       height: 42px;
+    }
+    .nav-logo-suffix {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--yellow);
+      padding-left: 10px;
+      border-left: 1px solid rgba(255, 222, 89, 0.4);
     }
     .nav-links {
       display: flex;
@@ -1108,7 +1134,22 @@
       gap: 60px;
       margin-bottom: 64px;
     }
-    .footer-brand img { height: 56px; margin-bottom: 24px; }
+    .footer-brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .footer-brand img { height: 40px; }
+    .footer-brand-suffix {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--yellow);
+      padding-left: 12px;
+      border-left: 1px solid rgba(255, 222, 89, 0.4);
+    }
     .footer-brand p {
       font-size: 14px;
       color: rgba(255, 255, 255, 0.55);
@@ -1145,6 +1186,15 @@
       color: var(--yellow);
       font-style: italic;
     }
+    .footer-legal-links {
+      display: flex;
+      gap: 16px;
+    }
+    .footer-legal-links a {
+      color: rgba(255, 255, 255, 0.4);
+      text-decoration: underline;
+    }
+    .footer-legal-links a:hover { color: var(--yellow); }
 
     /* ---------- ANIMATIONS ---------- */
     .reveal {
@@ -1189,6 +1239,11 @@
       .hero-stats { gap: 32px; }
       .footer-grid { grid-template-columns: 1fr; gap: 32px; }
       .footer-bottom { flex-direction: column; align-items: flex-start; }
+      .sim-controls { padding: 22px; }
+      .sim-result { padding: 26px; }
+      .sim-row { grid-template-columns: 1fr; gap: 18px; }
+      .sim-toggle-btn { font-size: 12px; padding: 12px 8px; }
+      .nav-logo-suffix { font-size: 14px; padding-left: 8px; }
     }
   </style>
 </head>
@@ -1198,7 +1253,8 @@
   <nav class="nav" id="nav">
     <div class="container nav-inner">
       <a href="#" class="nav-logo" aria-label="FORS TAXI">
-        <img src="img/logo-fors-blanc.png" alt="FORS TAXI" />
+        <img src="img/logo-fors-blanc.png" alt="FORS" />
+        <span class="nav-logo-suffix">TAXI</span>
       </a>
       <ul class="nav-links">
         <li><a href="#experience">Accompagnement</a></li>
@@ -1689,7 +1745,10 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <img src="img/logo-fors-blanc.png" alt="FORS TAXI" />
+          <div class="footer-brand-mark">
+            <img src="img/logo-fors-blanc.png" alt="FORS" />
+            <span class="footer-brand-suffix">TAXI</span>
+          </div>
           <p>Transport médical assis conventionné en BYD Seal U. Plaine de l'Ain, Lyon, Genève et région.</p>
         </div>
 
@@ -1716,8 +1775,8 @@
         <div class="footer-col">
           <h4>Société</h4>
           <ul>
-            <li>FORS Limited</li>
-            <li>Plaine de l'Ain</li>
+            <li>FORS TAXI</li>
+            <li>Villieu-Loyes-Mollon (01)</li>
             <li>SIRET : à compléter</li>
             <li>Carte pro : à compléter</li>
           </ul>
@@ -1725,7 +1784,11 @@
       </div>
 
       <div class="footer-bottom">
-        <div>© 2026 FORS Limited · Tous droits réservés</div>
+        <div>© 2026 FORS TAXI · Tous droits réservés</div>
+        <div class="footer-legal-links">
+          <a href="mentions-legales.html">Mentions légales</a>
+          <a href="confidentialite.html">Confidentialité</a>
+        </div>
         <div class="slogan">« Votre trajet, notre priorité. »</div>
       </div>
     </div>

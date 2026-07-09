@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0A0A0A" />
+  <title>Mentions légales · FORS TAXI</title>
+  <meta name="robots" content="noindex" />
+
+  <style>
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 300 900;
+      font-display: swap;
+      src: url('fonts/inter-variable-latin.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Space Grotesk';
+      font-style: normal;
+      font-weight: 500 700;
+      font-display: swap;
+      src: url('fonts/space-grotesk-variable-latin.woff2') format('woff2');
+    }
+
+    :root {
+      --yellow: #FFDE59;
+      --black: #0A0A0A;
+      --grey-900: #141414;
+      --grey-700: #2A2A2A;
+      --grey-500: #555555;
+      --grey-300: #B5B5B5;
+      --grey-100: #EFEFEF;
+      --white: #FFFFFF;
+      --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: var(--font-body);
+      background: var(--white);
+      color: var(--black);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+    a { color: var(--black); }
+    .container { max-width: 820px; margin: 0 auto; padding: 0 24px; }
+
+    .bar {
+      background: var(--black);
+      padding: 20px 0;
+    }
+    .bar .container { display: flex; align-items: center; justify-content: space-between; }
+    .bar a.back {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .bar a.back:hover { color: var(--yellow); }
+    .bar .brand {
+      font-family: var(--font-display);
+      color: var(--yellow);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    main { padding: 64px 0 96px; }
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 5vw, 44px);
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .updated { color: var(--grey-500); font-size: 13px; margin-bottom: 48px; }
+    h2 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      margin-top: 40px;
+      margin-bottom: 12px;
+    }
+    p, li { color: var(--grey-700); }
+    ul { padding-left: 20px; margin: 12px 0; }
+    li { margin-bottom: 6px; }
+    .placeholder {
+      background: var(--grey-100);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--black);
+      font-weight: 600;
+    }
+    .note {
+      margin-top: 48px;
+      padding: 20px 24px;
+      background: var(--grey-100);
+      border-radius: 16px;
+      font-size: 14px;
+      color: var(--grey-700);
+    }
+    footer {
+      padding: 32px 0;
+      text-align: center;
+      font-size: 12px;
+      color: var(--grey-500);
+      border-top: 1px solid var(--grey-100);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bar">
+    <div class="container">
+      <a href="index.html" class="back">← Retour au site</a>
+      <span class="brand">FORS TAXI</span>
+    </div>
+  </div>
+
+  <main class="container">
+    <h1>Mentions légales</h1>
+    <p class="updated">Dernière mise à jour : 9 juillet 2026</p>
+
+    <h2>1. Éditeur du site</h2>
+    <p>
+      Le présent site est édité par <span class="placeholder">FORS TAXI · Thomas Houmeur</span>,
+      <span class="placeholder">forme juridique à compléter (entreprise individuelle, EURL…)</span>,
+      dont le siège est situé <span class="placeholder">adresse à compléter</span>, Villieu-Loyes-Mollon (01800), France.
+    </p>
+    <ul>
+      <li>SIRET : <span class="placeholder">à compléter</span></li>
+      <li>N° de TVA intracommunautaire : <span class="placeholder">à compléter si applicable</span></li>
+      <li>Directeur de la publication : Thomas Houmeur</li>
+      <li>Contact : <a href="mailto:contact@fors-taxi.fr">contact@fors-taxi.fr</a> · <span class="placeholder">téléphone à compléter</span></li>
+    </ul>
+
+    <h2>2. Activité réglementée</h2>
+    <p>FORS TAXI exerce une activité de transport public particulier de personnes (taxi) soumise à autorisation administrative :</p>
+    <ul>
+      <li>Carte professionnelle de conducteur de taxi n° : <span class="placeholder">à compléter</span></li>
+      <li>Autorisation de stationnement (ADS) n° : <span class="placeholder">à compléter</span>, commune de rattachement : Villieu-Loyes-Mollon</li>
+      <li>Assurance responsabilité civile professionnelle : <span class="placeholder">assureur et n° de police à compléter</span></li>
+    </ul>
+    <p>Les tarifs appliqués sont ceux fixés par l'arrêté préfectoral en vigueur dans le département de l'Ain.</p>
+
+    <h2>3. Hébergement du site</h2>
+    <p>
+      Ce site est hébergé par GitHub, Inc., 88 Colin P. Kelly Jr Street, San Francisco, CA 94107, États-Unis
+      (support : <a href="https://support.github.com" target="_blank" rel="noopener">support.github.com</a>).
+    </p>
+    <p class="note">Cette information sera mise à jour si l'hébergement est transféré (par exemple chez Infomaniak) une fois le nom de domaine <strong>fors-taxi.fr</strong> activé.</p>
+
+    <h2>4. Propriété intellectuelle</h2>
+    <p>
+      L'ensemble des éléments de ce site (textes, logo, mise en page, code) est la propriété de FORS TAXI, sauf mention contraire, et ne peut être reproduit sans autorisation préalable.
+    </p>
+
+    <h2>5. Données personnelles</h2>
+    <p>
+      Les informations transmises via le formulaire de réservation font l'objet d'un traitement décrit dans notre
+      <a href="confidentialite.html">politique de confidentialité</a>.
+    </p>
+
+    <h2>6. Médiation de la consommation</h2>
+    <p>
+      Conformément à l'article L616-1 du Code de la consommation, tout client peut recourir gratuitement à un médiateur de la consommation en cas de litige non résolu directement avec FORS TAXI.
+      Médiateur compétent : <span class="placeholder">à compléter</span>.
+    </p>
+
+    <div class="note">
+      Cette page contient des informations à finaliser avant la mise en ligne officielle (SIRET, adresse, numéro de carte professionnelle, assureur, médiateur). Un site de taxi sans ces informations complètes reste exposé à un risque de non-conformité LCEN.
+    </div>
+  </main>
+
+  <footer>© 2026 FORS TAXI</footer>
+
+</body>
+</html>

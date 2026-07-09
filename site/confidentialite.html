@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0A0A0A" />
+  <title>Politique de confidentialité · FORS TAXI</title>
+  <meta name="robots" content="noindex" />
+
+  <style>
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 300 900;
+      font-display: swap;
+      src: url('fonts/inter-variable-latin.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Space Grotesk';
+      font-style: normal;
+      font-weight: 500 700;
+      font-display: swap;
+      src: url('fonts/space-grotesk-variable-latin.woff2') format('woff2');
+    }
+
+    :root {
+      --yellow: #FFDE59;
+      --black: #0A0A0A;
+      --grey-900: #141414;
+      --grey-700: #2A2A2A;
+      --grey-500: #555555;
+      --grey-300: #B5B5B5;
+      --grey-100: #EFEFEF;
+      --white: #FFFFFF;
+      --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: var(--font-body);
+      background: var(--white);
+      color: var(--black);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+    a { color: var(--black); }
+    .container { max-width: 820px; margin: 0 auto; padding: 0 24px; }
+
+    .bar { background: var(--black); padding: 20px 0; }
+    .bar .container { display: flex; align-items: center; justify-content: space-between; }
+    .bar a.back { color: var(--white); text-decoration: none; font-size: 14px; font-weight: 600; }
+    .bar a.back:hover { color: var(--yellow); }
+    .bar .brand { font-family: var(--font-display); color: var(--yellow); font-weight: 700; letter-spacing: 0.08em; }
+
+    main { padding: 64px 0 96px; }
+    h1 { font-family: var(--font-display); font-size: clamp(32px, 5vw, 44px); margin-bottom: 12px; letter-spacing: -0.02em; }
+    .updated { color: var(--grey-500); font-size: 13px; margin-bottom: 48px; }
+    h2 { font-family: var(--font-display); font-size: 22px; margin-top: 40px; margin-bottom: 12px; }
+    p, li { color: var(--grey-700); }
+    ul { padding-left: 20px; margin: 12px 0; }
+    li { margin-bottom: 6px; }
+    .placeholder { background: var(--grey-100); padding: 2px 8px; border-radius: 6px; font-size: 14px; color: var(--black); font-weight: 600; }
+    .note { margin-top: 48px; padding: 20px 24px; background: var(--grey-100); border-radius: 16px; font-size: 14px; color: var(--grey-700); }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--grey-100); color: var(--grey-700); vertical-align: top; }
+    th { color: var(--black); font-weight: 700; }
+    footer { padding: 32px 0; text-align: center; font-size: 12px; color: var(--grey-500); border-top: 1px solid var(--grey-100); }
+  </style>
+</head>
+<body>
+
+  <div class="bar">
+    <div class="container">
+      <a href="index.html" class="back">← Retour au site</a>
+      <span class="brand">FORS TAXI</span>
+    </div>
+  </div>
+
+  <main class="container">
+    <h1>Politique de confidentialité</h1>
+    <p class="updated">Dernière mise à jour : 9 juillet 2026</p>
+
+    <h2>1. Qui est responsable de vos données ?</h2>
+    <p>
+      FORS TAXI, représenté par Thomas Houmeur, est responsable du traitement des données collectées sur ce site.
+      Pour toute question, contactez <a href="mailto:contact@fors-taxi.fr">contact@fors-taxi.fr</a>.
+    </p>
+
+    <h2>2. Quelles données sont collectées ?</h2>
+    <p>Le seul formulaire du site est celui de demande de réservation. Il collecte :</p>
+    <table>
+      <tr><th>Donnée</th><th>Finalité</th></tr>
+      <tr><td>Nom</td><td>Vous identifier pour la course</td></tr>
+      <tr><td>Téléphone</td><td>Vous recontacter pour confirmer la réservation</td></tr>
+      <tr><td>Date et heure souhaitées</td><td>Organiser le trajet</td></tr>
+      <tr><td>Adresses de départ et d'arrivée</td><td>Calculer le trajet et l'itinéraire</td></tr>
+      <tr><td>Nombre de passagers, type de trajet</td><td>Adapter le véhicule et le tarif</td></tr>
+      <tr><td>Notes complémentaires (facultatif)</td><td>Ex. besoin d'un fauteuil roulant : information utile à la prise en charge, traitée avec la même confidentialité qu'une donnée de santé</td></tr>
+    </table>
+
+    <h2>3. Comment ces données sont-elles utilisées ?</h2>
+    <p>
+      À l'envoi du formulaire, ces informations sont mises en forme dans un message et ouvertes dans <strong>WhatsApp</strong> afin que vous les transmettiez vous-même à Thomas Houmeur.
+      Le site ne stocke aucune donnée du formulaire sur un serveur : rien n'est enregistré tant que vous n'envoyez pas le message.
+      Une fois envoyé, ce message transite par les infrastructures de WhatsApp / Meta, soumises à leur propre politique de confidentialité.
+    </p>
+
+    <h2>4. Simulateur de tarif</h2>
+    <p>
+      Lorsque vous saisissez une adresse dans le simulateur, celle-ci est envoyée à deux services tiers, uniquement pour calculer une distance :
+    </p>
+    <ul>
+      <li><strong>api-adresse.data.gouv.fr</strong> (service public français, Etalab) pour la recherche d'adresse ;</li>
+      <li><strong>OSRM</strong> (router.project-osrm.org, projet open source) pour le calcul d'itinéraire.</li>
+    </ul>
+    <p>
+      Aucune donnée saisie dans le simulateur n'est enregistrée par FORS TAXI. Ces appels ne se déclenchent que lorsque vous tapez volontairement une adresse.
+    </p>
+
+    <h2>5. Cookies et traceurs</h2>
+    <p>
+      Ce site n'utilise <strong>aucun cookie de mesure d'audience, publicitaire ou de suivi</strong>. Les polices de caractères sont hébergées directement sur le site (aucune requête vers Google Fonts ou un autre service de police externe).
+    </p>
+
+    <h2>6. Durée de conservation</h2>
+    <p>
+      Le site lui-même ne conserve aucune donnée de formulaire. Les échanges via WhatsApp sont conservés par FORS TAXI le temps nécessaire à la gestion de la course, puis supprimés.
+    </p>
+
+    <h2>7. Vos droits</h2>
+    <p>Conformément au RGPD, vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation et d'opposition sur vos données.
+      Pour exercer ces droits, contactez <a href="mailto:contact@fors-taxi.fr">contact@fors-taxi.fr</a>.
+      Vous pouvez également introduire une réclamation auprès de la CNIL (<a href="https://www.cnil.fr" target="_blank" rel="noopener">cnil.fr</a>).
+    </p>
+
+    <div class="note">
+      Cette politique décrit le fonctionnement réel du site actuel (formulaire vers WhatsApp, simulateur vers des services publics/open source, aucun cookie). Si un système de réservation en ligne avec stockage de données est ajouté plus tard, cette page devra être mise à jour en conséquence.
+    </div>
+  </main>
+
+  <footer>© 2026 FORS TAXI</footer>
+
+</body>
+</html>
