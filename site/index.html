@@ -1603,7 +1603,7 @@
         <span class="accent">notre priorité.</span>
       </h1>
       <p class="hero-sub">
-        Un chauffeur unique pour tous vos déplacements : <strong>transport médical conventionné</strong> (radiothérapie, chimiothérapie, dialyse, hospitalisations) et <strong>taxi du quotidien</strong> (gares, aéroports, longue distance). Au départ de la <strong>Plaine de l'Ain</strong>.
+        Au départ de la <strong>Plaine de l'Ain</strong>, FORS TAXI est votre partenaire de confiance pour tous vos déplacements. Spécialisés et conventionnés par la CPAM, nous vous accompagnons en toute sérénité et discrétion vers vos rendez-vous médicaux (hospitalisations, consultations, ou traitements réguliers comme la radiothérapie, chimiothérapie et dialyse). Au-delà du transport de santé, nous sommes à votre service pour simplifier vos trajets du quotidien : transferts gares et aéroports, rendez-vous professionnels, ainsi que vos trajets de courtes et longues distances. Installez-vous à bord d'un véhicule tout confort et voyagez l'esprit léger.
       </p>
       <div class="hero-ctas">
         <a href="#contact" class="btn btn-primary">
@@ -2370,10 +2370,13 @@
 
     async function simSearchAddress(query) {
       try {
-        const res = await fetch(`https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(query)}&limit=5`);
+        // Nominatim (OpenStreetMap) : couvre à la fois les adresses postales et les lieux
+        // nommés (gares, hôpitaux, aéroports...), en France comme en Suisse.
+        const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&limit=6&countrycodes=fr,ch&accept-language=fr&q=${encodeURIComponent(query)}`;
+        const res = await fetch(url);
         if (!res.ok) throw new Error('geocode failed');
         const data = await res.json();
-        return data.features || [];
+        return data || [];
       } catch (err) {
         return null;
       }
@@ -2397,18 +2400,18 @@
           return;
         }
         if (!features.length) {
-          box.innerHTML = '<div class="sim-suggestion-item">Aucune adresse trouvée (couverture France)</div>';
+          box.innerHTML = '<div class="sim-suggestion-item">Aucun lieu trouvé, précisez la recherche (ville, code postal…)</div>';
           box.classList.add('open');
           return;
         }
-        box.innerHTML = features.map((f, i) => `<div class="sim-suggestion-item" data-i="${i}">${f.properties.label}</div>`).join('');
+        box.innerHTML = features.map((f, i) => `<div class="sim-suggestion-item" data-i="${i}">${f.display_name}</div>`).join('');
         box.classList.add('open');
         box.querySelectorAll('.sim-suggestion-item[data-i]').forEach(item => {
           item.addEventListener('click', () => {
             const f = features[parseInt(item.dataset.i, 10)];
-            input.value = f.properties.label;
-            input.dataset.lat = f.geometry.coordinates[1];
-            input.dataset.lon = f.geometry.coordinates[0];
+            input.value = f.display_name;
+            input.dataset.lat = f.lat;
+            input.dataset.lon = f.lon;
             box.classList.remove('open');
             box.innerHTML = '';
             if (onSelect) onSelect();
