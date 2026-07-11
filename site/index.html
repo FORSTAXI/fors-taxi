@@ -10,6 +10,8 @@
   <meta property="og:description" content="Transport médical assis conventionné en BYD Seal U. Plaine de l'Ain, Lyon, région genevoise." />
   <meta property="og:type" content="website" />
 
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
+
   <style>
     /* Polices auto-hébergées (aucune requête vers Google Fonts, aucun cookie tiers) */
     @font-face {
@@ -866,7 +868,28 @@
     .sim-address-input {
       width: 100%;
       margin-bottom: 8px;
+      padding-right: 38px;
     }
+    .sim-address-clear {
+      position: absolute;
+      top: 0;
+      bottom: 8px;
+      right: 6px;
+      width: 26px;
+      height: 26px;
+      margin: auto 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--grey-300);
+      color: var(--white);
+      font-size: 13px;
+      line-height: 1;
+      transition: background 0.2s var(--ease);
+    }
+    .sim-address-clear.visible { display: flex; }
+    .sim-address-clear:hover { background: var(--black); }
     .sim-suggestions {
       position: absolute;
       top: calc(100% - 4px);
@@ -989,6 +1012,47 @@
       line-height: 1.6;
       color: rgba(255,255,255,0.4);
     }
+
+    /* ---------- CARTE DU TRAJET ---------- */
+    .sim-map-wrap {
+      margin-top: 32px;
+    }
+    .sim-map-label {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    .sim-map {
+      height: 340px;
+      width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--grey-300);
+      background: var(--grey-100);
+    }
+    .sim-map-legend {
+      display: flex;
+      gap: 24px;
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--grey-500);
+    }
+    .sim-map-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .sim-map-swatch {
+      display: inline-block;
+      width: 20px;
+      height: 3px;
+      border-radius: 2px;
+    }
+    .sim-map-swatch-approach {
+      background: repeating-linear-gradient(90deg, var(--grey-500) 0 4px, transparent 4px 7px);
+    }
+    .sim-map-swatch-course { background: var(--black); }
 
     /* ---------- GRILLE TARIFAIRE ---------- */
     .tariff-grid-wrap {
@@ -1894,10 +1958,12 @@
             </div>
             <div class="sim-address">
               <input type="text" id="simFrom" class="sim-number sim-address-input" placeholder="Adresse de départ" autocomplete="off" />
+              <button type="button" class="sim-address-clear" id="simFromClear" aria-label="Effacer l'adresse de départ">✕</button>
               <div class="sim-suggestions" id="simFromSuggestions"></div>
             </div>
             <div class="sim-address">
               <input type="text" id="simTo" class="sim-number sim-address-input" placeholder="Adresse d'arrivée (hôpital, clinique…)" autocomplete="off" />
+              <button type="button" class="sim-address-clear" id="simToClear" aria-label="Effacer l'adresse d'arrivée">✕</button>
               <div class="sim-suggestions" id="simToSuggestions"></div>
             </div>
             <div class="sim-distance-status" id="simDistanceStatus">Renseignez les deux adresses pour un calcul automatique de la distance.</div>
@@ -1978,6 +2044,15 @@
           <div class="sim-disclaimer">
             Tarifs réglementaires 2026 : prise en charge 2,28 € · tarif horaire d'attente 30,84 €/h · tarif plancher légal 8,00 €. Simulation non contractuelle · source : arrêté préfectoral du 30/01/2026, préfecture de l'Ain.
           </div>
+        </div>
+      </div>
+
+      <div class="sim-map-wrap" id="simMapWrap" style="display:none;">
+        <div class="sim-map-label">📍 Aperçu du trajet</div>
+        <div id="simMap" class="sim-map"></div>
+        <div class="sim-map-legend">
+          <span><i class="sim-map-swatch sim-map-swatch-approach"></i> Trajet d'approche (base → départ)</span>
+          <span><i class="sim-map-swatch sim-map-swatch-course"></i> Votre trajet</span>
         </div>
       </div>
 
@@ -2283,6 +2358,7 @@
     </div>
   </footer>
 
+  <script src="vendor/leaflet/leaflet.js"></script>
   <script>
     // ---------- NAV scroll state ----------
     const nav = document.getElementById('nav');
@@ -2362,6 +2438,79 @@
     let simApproachKm = 0;
     let simApproachSource = 'none';
 
+    // ---------- Carte du trajet (Leaflet + OpenStreetMap) ----------
+    let simMap = null;
+    let simMapMarkers = {};
+    let simMapLines = {};
+
+    function simEnsureMap() {
+      if (simMap) return simMap;
+      if (typeof L === 'undefined') return null;
+      L.Icon.Default.imagePath = 'vendor/leaflet/images/';
+      simMap = L.map('simMap', { scrollWheelZoom: false }).setView([SIM_BASE.lat, SIM_BASE.lon], 10);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors'
+      }).addTo(simMap);
+      simMapMarkers.base = L.marker([SIM_BASE.lat, SIM_BASE.lon]).addTo(simMap).bindPopup('Base FORS TAXI · Villieu-Loyes-Mollon');
+      return simMap;
+    }
+
+    function simFitMapBounds() {
+      if (!simMap) return;
+      const pts = [[SIM_BASE.lat, SIM_BASE.lon]];
+      if (simMapMarkers.from) pts.push(simMapMarkers.from.getLatLng());
+      if (simMapMarkers.to) pts.push(simMapMarkers.to.getLatLng());
+      if (pts.length > 1) {
+        simMap.fitBounds(pts, { padding: [32, 32] });
+      } else {
+        simMap.setView(pts[0], 11);
+      }
+      setTimeout(() => simMap.invalidateSize(), 200);
+    }
+
+    function simUpdateMapVisibility() {
+      const hasAny = !!(simMapMarkers.from || simMapMarkers.to);
+      document.getElementById('simMapWrap').style.display = hasAny ? 'block' : 'none';
+      if (hasAny) simFitMapBounds();
+    }
+
+    function simSetMapPoint(role, lat, lon, label) {
+      const map = simEnsureMap();
+      if (!map) return;
+      if (simMapMarkers[role]) simMap.removeLayer(simMapMarkers[role]);
+      simMapMarkers[role] = L.marker([lat, lon]).addTo(simMap).bindPopup(label);
+      simUpdateMapVisibility();
+    }
+
+    function simClearMapPoint(role) {
+      if (simMapMarkers[role] && simMap) {
+        simMap.removeLayer(simMapMarkers[role]);
+        delete simMapMarkers[role];
+      }
+      simUpdateMapVisibility();
+    }
+
+    function simSetMapLine(role, geojsonCoords, color, dashed) {
+      const map = simEnsureMap();
+      if (!map || !geojsonCoords) return;
+      if (simMapLines[role]) simMap.removeLayer(simMapLines[role]);
+      const latlngs = geojsonCoords.map(c => [c[1], c[0]]);
+      simMapLines[role] = L.polyline(latlngs, {
+        color,
+        weight: 4,
+        opacity: 0.85,
+        dashArray: dashed ? '2 8' : null
+      }).addTo(simMap);
+    }
+
+    function simClearMapLine(role) {
+      if (simMapLines[role] && simMap) {
+        simMap.removeLayer(simMapLines[role]);
+        delete simMapLines[role];
+      }
+    }
+
     function simFormatEuro(n) {
       return n.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
     }
@@ -2398,6 +2547,13 @@
       }
     }
 
+    function simUpdateClearButton(inputId) {
+      const input = document.getElementById(inputId);
+      const clearBtn = document.getElementById(inputId + 'Clear');
+      if (!input || !clearBtn) return;
+      clearBtn.classList.toggle('visible', input.value.trim().length > 0);
+    }
+
     function simSetupAddressField(inputId, suggestionsId, onSelect) {
       const input = document.getElementById(inputId);
       const box = document.getElementById(suggestionsId);
@@ -2430,14 +2586,31 @@
             input.dataset.lon = f.lon;
             box.classList.remove('open');
             box.innerHTML = '';
+            simUpdateClearButton(inputId);
             if (onSelect) onSelect();
           });
         });
       }, 400);
 
-      input.addEventListener('input', runSearch);
+      input.addEventListener('input', () => { simUpdateClearButton(inputId); runSearch(); });
       document.addEventListener('click', (e) => {
         if (e.target !== input && !box.contains(e.target)) box.classList.remove('open');
+      });
+    }
+
+    function simSetupClearButton(inputId, role, onClear) {
+      const input = document.getElementById(inputId);
+      const clearBtn = document.getElementById(inputId + 'Clear');
+      if (!input || !clearBtn) return;
+      clearBtn.addEventListener('click', () => {
+        input.value = '';
+        input.dataset.lat = '';
+        input.dataset.lon = '';
+        clearBtn.classList.remove('visible');
+        input.focus();
+        simClearMapPoint(role);
+        if (onClear) onClear();
+        simCalculate();
       });
     }
 
@@ -2451,7 +2624,7 @@
       status.className = 'sim-distance-status';
 
       try {
-        const url = `https://router.project-osrm.org/route/v1/driving/${from.dataset.lon},${from.dataset.lat};${to.dataset.lon},${to.dataset.lat}?overview=false`;
+        const url = `https://router.project-osrm.org/route/v1/driving/${from.dataset.lon},${from.dataset.lat};${to.dataset.lon},${to.dataset.lat}?overview=full&geometries=geojson`;
         const res = await fetch(url);
         if (!res.ok) throw new Error('routing failed');
         const data = await res.json();
@@ -2462,6 +2635,12 @@
         status.textContent = `Distance calculée par itinéraire routier : ${simDistanceKm} km`;
         status.className = 'sim-distance-status ok';
         document.getElementById('simDistance').value = Math.min(150, Math.max(1, Math.round(simDistanceKm)));
+
+        simSetMapPoint('from', parseFloat(from.dataset.lat), parseFloat(from.dataset.lon), 'Départ');
+        simSetMapPoint('to', parseFloat(to.dataset.lat), parseFloat(to.dataset.lon), 'Arrivée');
+        simSetMapLine('course', data.routes[0].geometry.coordinates, '#0A0A0A', false);
+        simFitMapBounds();
+
         simCalculate();
       } catch (err) {
         status.textContent = "Calcul automatique indisponible, indiquez la distance manuellement ci-dessous.";
@@ -2478,7 +2657,7 @@
       status.className = 'sim-distance-status';
 
       try {
-        const url = `https://router.project-osrm.org/route/v1/driving/${SIM_BASE.lon},${SIM_BASE.lat};${from.dataset.lon},${from.dataset.lat}?overview=false`;
+        const url = `https://router.project-osrm.org/route/v1/driving/${SIM_BASE.lon},${SIM_BASE.lat};${from.dataset.lon},${from.dataset.lat}?overview=full&geometries=geojson`;
         const res = await fetch(url);
         if (!res.ok) throw new Error('routing failed');
         const data = await res.json();
@@ -2489,6 +2668,10 @@
         status.textContent = `Approche ${SIM_BASE.label} → départ : ${simApproachKm} km`;
         status.className = 'sim-distance-status ok';
         document.getElementById('simApproachManual').value = Math.min(80, Math.round(simApproachKm));
+
+        simSetMapLine('approach', data.routes[0].geometry.coordinates, '#8A8A8A', true);
+        simFitMapBounds();
+
         simCalculate();
       } catch (err) {
         status.textContent = "Calcul de l'approche indisponible, indiquez-la manuellement ci-dessous.";
@@ -2613,6 +2796,27 @@
 
     simSetupAddressField('simFrom', 'simFromSuggestions', () => { simTryComputeApproach(); simTryComputeRoute(); });
     simSetupAddressField('simTo', 'simToSuggestions', () => simTryComputeRoute());
+
+    simSetupClearButton('simFrom', 'from', () => {
+      simClearMapLine('approach');
+      simClearMapLine('course');
+      simApproachKm = 0;
+      simApproachSource = 'none';
+      simDistanceKm = 0;
+      simDistanceSource = 'none';
+      document.getElementById('simApproachStatus').textContent = "Trajet d'approche depuis Villieu-Loyes-Mollon (commune de rattachement) : renseignez l'adresse de départ.";
+      document.getElementById('simApproachStatus').className = 'sim-distance-status';
+      document.getElementById('simDistanceStatus').textContent = 'Renseignez les deux adresses pour un calcul automatique de la distance.';
+      document.getElementById('simDistanceStatus').className = 'sim-distance-status';
+    });
+
+    simSetupClearButton('simTo', 'to', () => {
+      simClearMapLine('course');
+      simDistanceKm = 0;
+      simDistanceSource = 'none';
+      document.getElementById('simDistanceStatus').textContent = 'Renseignez les deux adresses pour un calcul automatique de la distance.';
+      document.getElementById('simDistanceStatus').className = 'sim-distance-status';
+    });
 
     if (document.getElementById('simDistance')) simCalculate();
   </script>
