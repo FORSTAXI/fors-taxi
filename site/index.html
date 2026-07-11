@@ -704,7 +704,51 @@
       grid-template-columns: 1.1fr 1fr;
       gap: 48px;
       margin-top: 16px;
-      align-items: center;
+      align-items: start;
+    }
+    .classic-categories {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .classic-category h3 {
+      font-family: var(--font-display);
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .classic-category p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 12px;
+    }
+    .classic-category ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .classic-category li {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.5;
+      padding-left: 16px;
+      position: relative;
+    }
+    .classic-category li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--yellow);
+    }
+    .classic-category li strong {
+      color: var(--white);
+      font-weight: 600;
     }
     .classic-photos {
       display: grid;
@@ -1851,7 +1895,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
           </div>
           <h3>Le Véhicule</h3>
-          <span class="pillar-subtitle">BYD Seal U Hybride · Le choix du confort et de la douceur.</span>
+          <span class="pillar-subtitle">BYD Seal U DM-i · Le choix du confort et de la douceur.</span>
           <p>Pour vos trajets, installez-vous à bord d'un SUV hybride spacieux et particulièrement silencieux. Sa conduite souple et ses faibles émissions sont parfaitement adaptées aux personnes fatiguées ou affaiblies par les traitements.</p>
         </div>
         <div class="pillar">
@@ -1879,15 +1923,15 @@
     <div class="container">
       <div class="vehicle">
         <div class="vehicle-visual">
-          <img src="img/byd-seal-u-portrait.jpg" alt="BYD Seal U" />
-          <span class="vehicle-visual-badge">BYD Seal U</span>
+          <img src="img/byd-seal-u-portrait.jpg" alt="BYD Seal U DM-i" />
+          <span class="vehicle-visual-badge">BYD Seal U DM-i</span>
         </div>
 
         <div class="vehicle-content">
           <span class="section-eyebrow">Le véhicule</span>
           <h2>SUV hybride,<br /><span class="accent">confort adapté.</span></h2>
           <p>
-            Notre BYD Seal U vous accueille dans un espace pensé pour votre confort : sièges chauffants, climatisation à double zone, accès Wi-Fi, prises USB-C et chargeurs sans fil. Une cabine silencieuse et apaisante, idéale après une séance de traitement.
+            Notre BYD Seal U DM-i, finition Boost, vous accueille dans un espace pensé pour votre confort : sièges chauffants, climatisation à double zone, accès Wi-Fi, prises USB-C et chargeurs sans fil. Une cabine silencieuse et apaisante, idéale après une séance de traitement.
           </p>
 
           <div class="vehicle-specs">
@@ -1974,9 +2018,9 @@
   <section class="section section-dark reveal" id="classique">
     <div class="container">
       <div class="section-head">
-        <span class="section-eyebrow">Aussi disponible</span>
-        <h2>Votre taxi pour tous<br />vos <span class="accent">trajets du quotidien</span>.</h2>
-        <p>En dehors des trajets médicaux, FORS TAXI reste un taxi pour vos déplacements du quotidien : gares, aéroports, longue distance.</p>
+        <span class="section-eyebrow">Vos déplacements privés et professionnels</span>
+        <h2>Un service de taxi adapté à <span class="accent">tous vos besoins</span> du quotidien.</h2>
+        <p>En dehors des transports médicaux, FORS TAXI vous accompagne dans tous vos déplacements, qu'ils soient locaux, régionaux ou nationaux. Oubliez le stress du stationnement et de la route, nous prenons tout en charge.</p>
       </div>
 
       <div class="classic">
@@ -1997,24 +2041,34 @@
           </div>
         </div>
 
-        <ul class="zone-cities">
-          <li>
-            <span class="city">Gares</span>
-            <span class="detail">Lyon Part-Dieu · Perrache · Bourg-en-Bresse · Ambérieu</span>
-          </li>
-          <li>
-            <span class="city">Aéroports</span>
-            <span class="detail">Lyon Saint-Exupéry · Genève Cointrin</span>
-          </li>
-          <li>
-            <span class="city">Longue distance</span>
-            <span class="detail">Paris · Annecy · Chamonix · et au-delà</span>
-          </li>
-          <li>
-            <span class="city">Événements &amp; courses pro</span>
-            <span class="detail">Mise à disposition, déplacements professionnels</span>
-          </li>
-        </ul>
+        <div class="classic-categories">
+          <div class="classic-category">
+            <h3>Transferts Gares &amp; Aéroports</h3>
+            <p>Des liaisons directes et sereines pour vos départs et arrivées :</p>
+            <ul>
+              <li><strong>Aéroports :</strong> Lyon Saint-Exupéry · Genève Cointrin</li>
+              <li><strong>Gares :</strong> Ambérieu-en-Bugey · Bourg-en-Bresse · Lyon Part-Dieu · Lyon Perrache</li>
+            </ul>
+          </div>
+
+          <div class="classic-category">
+            <h3>Courtes &amp; Longues Distances</h3>
+            <p>Pour vos trajets spécifiques dans la métropole lyonnaise ou partout en France :</p>
+            <ul>
+              <li><strong>Métropole :</strong> tous vos déplacements sur Lyon et sa périphérie</li>
+              <li><strong>Longues distances :</strong> Annecy, Chamonix, Paris... Nous vous conduisons là où vous le souhaitez, sans limite de distance</li>
+            </ul>
+          </div>
+
+          <div class="classic-category">
+            <h3>Événements &amp; Services Professionnels</h3>
+            <p>Une solution sur mesure pour les entreprises et les moments importants :</p>
+            <ul>
+              <li>Déplacements professionnels et séminaires</li>
+              <li>Mise à disposition du véhicule avec chauffeur (à l'heure ou à la journée)</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </section>
