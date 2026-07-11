@@ -982,6 +982,15 @@
       font-weight: 700;
       letter-spacing: -0.02em;
       line-height: 1;
+      display: inline-block;
+    }
+    .sim-result-amount.sim-pulse {
+      animation: simPulse 0.4s var(--ease);
+    }
+    @keyframes simPulse {
+      0% { transform: scale(1); color: var(--yellow); }
+      40% { transform: scale(1.08); color: var(--yellow); }
+      100% { transform: scale(1); color: var(--white); }
     }
     .sim-result-label {
       font-size: 13px;
@@ -1015,28 +1024,30 @@
 
     /* ---------- CARTE DU TRAJET ---------- */
     .sim-map-wrap {
-      margin-top: 32px;
+      margin: 14px 0 6px;
+      padding: 10px;
+      background: var(--black);
+      border-radius: 20px;
+      animation: simMapPop 0.35s var(--ease);
     }
-    .sim-map-label {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 14px;
-      margin-bottom: 12px;
+    @keyframes simMapPop {
+      from { opacity: 0; transform: scale(0.97); }
+      to { opacity: 1; transform: scale(1); }
     }
     .sim-map {
-      height: 340px;
+      height: 220px;
       width: 100%;
-      border-radius: 20px;
+      border-radius: 14px;
       overflow: hidden;
-      border: 1px solid var(--grey-300);
       background: var(--grey-100);
     }
     .sim-map-legend {
       display: flex;
-      gap: 24px;
-      margin-top: 12px;
-      font-size: 12px;
-      color: var(--grey-500);
+      gap: 20px;
+      margin-top: 10px;
+      padding: 0 4px;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.55);
     }
     .sim-map-legend span {
       display: inline-flex;
@@ -1045,14 +1056,33 @@
     }
     .sim-map-swatch {
       display: inline-block;
-      width: 20px;
+      width: 18px;
       height: 3px;
       border-radius: 2px;
     }
     .sim-map-swatch-approach {
-      background: repeating-linear-gradient(90deg, var(--grey-500) 0 4px, transparent 4px 7px);
+      background: repeating-linear-gradient(90deg, rgba(255,255,255,0.5) 0 4px, transparent 4px 7px);
     }
-    .sim-map-swatch-course { background: var(--black); }
+    .sim-map-swatch-course { background: var(--yellow); }
+    .sim-map-pin {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.35);
+      border: 2px solid var(--white);
+    }
+    .sim-map-pin span {
+      transform: rotate(45deg);
+      font-size: 14px;
+      line-height: 1;
+    }
+    .sim-map-pin-base { background: var(--white); }
+    .sim-map-pin-from { background: var(--black); }
+    .sim-map-pin-to { background: var(--yellow); }
 
     /* ---------- IDÉES À PROXIMITÉ ---------- */
     .sim-nearby-wrap { margin-top: 32px; }
@@ -2022,6 +2052,15 @@
             </div>
             <div class="sim-distance-status" id="simDistanceStatus">Renseignez les deux adresses pour un calcul automatique de la distance.</div>
             <div class="sim-distance-status" id="simApproachStatus">Trajet d'approche depuis Villieu-Loyes-Mollon (commune de rattachement) : renseignez l'adresse de départ.</div>
+
+            <div class="sim-map-wrap" id="simMapWrap" style="display:none;">
+              <div id="simMap" class="sim-map"></div>
+              <div class="sim-map-legend">
+                <span><i class="sim-map-swatch sim-map-swatch-approach"></i> Approche</span>
+                <span><i class="sim-map-swatch sim-map-swatch-course"></i> Votre trajet</span>
+              </div>
+            </div>
+
             <button type="button" class="sim-manual-link" id="simManualToggle">Saisir les distances moi-même</button>
             <div class="sim-manual-wrap" id="simManualWrap" style="display:none;">
               <div class="sim-field-label"><span>Distance du trajet</span></div>
@@ -2034,8 +2073,8 @@
           <div class="sim-field">
             <span class="sim-field-label"><span>Type de trajet</span></span>
             <div class="sim-toggle" id="simTripType">
-              <button type="button" class="sim-toggle-btn active" data-value="aller">Aller simple</button>
-              <button type="button" class="sim-toggle-btn" data-value="allerretour">Aller-retour</button>
+              <button type="button" class="sim-toggle-btn active" data-value="aller">➡️ Aller simple</button>
+              <button type="button" class="sim-toggle-btn" data-value="allerretour">🔁 Aller-retour</button>
             </div>
             <div class="sim-hint" id="simTripHint">Trajet aller simple : le taxi repart à vide après vous avoir déposé (tarif C ou D).</div>
           </div>
@@ -2043,8 +2082,8 @@
           <div class="sim-field">
             <span class="sim-field-label"><span>Horaire</span></span>
             <div class="sim-toggle" id="simTime">
-              <button type="button" class="sim-toggle-btn active" data-value="jour">Jour · 7h–19h</button>
-              <button type="button" class="sim-toggle-btn" data-value="nuit">Nuit / dimanche / férié</button>
+              <button type="button" class="sim-toggle-btn active" data-value="jour">☀️ Jour · 7h–19h</button>
+              <button type="button" class="sim-toggle-btn" data-value="nuit">🌙 Nuit, dim., férié</button>
             </div>
           </div>
 
@@ -2098,15 +2137,6 @@
           <div class="sim-disclaimer">
             Tarifs réglementaires 2026 : prise en charge 2,28 € · tarif horaire d'attente 30,84 €/h · tarif plancher légal 8,00 €. Simulation non contractuelle · source : arrêté préfectoral du 30/01/2026, préfecture de l'Ain.
           </div>
-        </div>
-      </div>
-
-      <div class="sim-map-wrap" id="simMapWrap" style="display:none;">
-        <div class="sim-map-label">📍 Aperçu du trajet</div>
-        <div id="simMap" class="sim-map"></div>
-        <div class="sim-map-legend">
-          <span><i class="sim-map-swatch sim-map-swatch-approach"></i> Trajet d'approche (base → départ)</span>
-          <span><i class="sim-map-swatch sim-map-swatch-course"></i> Votre trajet</span>
         </div>
       </div>
 
@@ -2503,16 +2533,26 @@
     let simMapMarkers = {};
     let simMapLines = {};
 
+    function simPinIcon(role, emoji) {
+      return L.divIcon({
+        className: '',
+        html: `<div class="sim-map-pin sim-map-pin-${role}"><span>${emoji}</span></div>`,
+        iconSize: [30, 30],
+        iconAnchor: [15, 28],
+        popupAnchor: [0, -26]
+      });
+    }
+
     function simEnsureMap() {
       if (simMap) return simMap;
       if (typeof L === 'undefined') return null;
-      L.Icon.Default.imagePath = 'vendor/leaflet/images/';
-      simMap = L.map('simMap', { scrollWheelZoom: false }).setView([SIM_BASE.lat, SIM_BASE.lon], 10);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 18,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors'
+      simMap = L.map('simMap', { scrollWheelZoom: false, zoomControl: true }).setView([SIM_BASE.lat, SIM_BASE.lon], 11);
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>'
       }).addTo(simMap);
-      simMapMarkers.base = L.marker([SIM_BASE.lat, SIM_BASE.lon]).addTo(simMap).bindPopup('Base FORS TAXI · Villieu-Loyes-Mollon');
+      simMapMarkers.base = L.marker([SIM_BASE.lat, SIM_BASE.lon], { icon: simPinIcon('base', '🏠') })
+        .addTo(simMap).bindPopup('Base FORS TAXI · Villieu-Loyes-Mollon');
       return simMap;
     }
 
@@ -2522,7 +2562,7 @@
       if (simMapMarkers.from) pts.push(simMapMarkers.from.getLatLng());
       if (simMapMarkers.to) pts.push(simMapMarkers.to.getLatLng());
       if (pts.length > 1) {
-        simMap.fitBounds(pts, { padding: [32, 32] });
+        simMap.fitBounds(pts, { padding: [28, 28], maxZoom: 14 });
       } else {
         simMap.setView(pts[0], 11);
       }
@@ -2539,7 +2579,8 @@
       const map = simEnsureMap();
       if (!map) return;
       if (simMapMarkers[role]) simMap.removeLayer(simMapMarkers[role]);
-      simMapMarkers[role] = L.marker([lat, lon]).addTo(simMap).bindPopup(label);
+      const emoji = role === 'from' ? '🧍' : '📍';
+      simMapMarkers[role] = L.marker([lat, lon], { icon: simPinIcon(role, emoji) }).addTo(simMap).bindPopup(label);
       simUpdateMapVisibility();
     }
 
@@ -2551,17 +2592,26 @@
       simUpdateMapVisibility();
     }
 
-    function simSetMapLine(role, geojsonCoords, color, dashed) {
+    function simSetMapLine(role, geojsonCoords) {
       const map = simEnsureMap();
       if (!map || !geojsonCoords) return;
       if (simMapLines[role]) simMap.removeLayer(simMapLines[role]);
       const latlngs = geojsonCoords.map(c => [c[1], c[0]]);
-      simMapLines[role] = L.polyline(latlngs, {
-        color,
-        weight: 4,
-        opacity: 0.85,
-        dashArray: dashed ? '2 8' : null
-      }).addTo(simMap);
+      if (role === 'course') {
+        // Effet "sticker" : liseré noir + trait jaune de la marque par-dessus.
+        simMapLines[role] = L.layerGroup([
+          L.polyline(latlngs, { color: '#0A0A0A', weight: 7, opacity: 1, lineCap: 'round', lineJoin: 'round' }),
+          L.polyline(latlngs, { color: '#FFDE59', weight: 4, opacity: 1, lineCap: 'round', lineJoin: 'round' })
+        ]).addTo(simMap);
+      } else {
+        simMapLines[role] = L.polyline(latlngs, {
+          color: '#2A2A2A',
+          weight: 3,
+          opacity: 0.75,
+          dashArray: '1 9',
+          lineCap: 'round'
+        }).addTo(simMap);
+      }
     }
 
     function simClearMapLine(role) {
@@ -2780,7 +2830,7 @@
 
         simSetMapPoint('from', parseFloat(from.dataset.lat), parseFloat(from.dataset.lon), 'Départ');
         simSetMapPoint('to', parseFloat(to.dataset.lat), parseFloat(to.dataset.lon), 'Arrivée');
-        simSetMapLine('course', data.routes[0].geometry.coordinates, '#0A0A0A', false);
+        simSetMapLine('course', data.routes[0].geometry.coordinates);
         simFitMapBounds();
 
         simCalculate();
@@ -2811,7 +2861,7 @@
         status.className = 'sim-distance-status ok';
         document.getElementById('simApproachManual').value = Math.min(80, Math.round(simApproachKm));
 
-        simSetMapLine('approach', data.routes[0].geometry.coordinates, '#8A8A8A', true);
+        simSetMapLine('approach', data.routes[0].geometry.coordinates);
         simFitMapBounds();
 
         simCalculate();
@@ -2819,6 +2869,19 @@
         status.textContent = "Calcul de l'approche indisponible, indiquez-la manuellement ci-dessous.";
         status.className = 'sim-distance-status err';
       }
+    }
+
+    let simLastTotalText = '';
+    function simSetTotalDisplay(total) {
+      const el = document.getElementById('simTotal');
+      const text = simFormatEuro(total);
+      el.textContent = text;
+      if (text !== simLastTotalText && simLastTotalText !== '') {
+        el.classList.remove('sim-pulse');
+        void el.offsetWidth;
+        el.classList.add('sim-pulse');
+      }
+      simLastTotalText = text;
     }
 
     function simCalculate() {
@@ -2836,7 +2899,7 @@
 
       if (distance <= 0 && simApproachKm <= 0) {
         document.getElementById('simTariffBadge').textContent = 'En attente du trajet';
-        document.getElementById('simTotal').textContent = simFormatEuro(0);
+        simSetTotalDisplay(0);
         document.getElementById('simBreakdown').innerHTML =
           '<li><span>Renseignez une adresse de départ et d\'arrivée (ou saisissez une distance manuellement) pour voir l\'estimation.</span></li>';
         return;
@@ -2872,7 +2935,7 @@
       const total = courseTotal + toll;
 
       document.getElementById('simTariffBadge').textContent = `Tarif ${tariffCode} · ${SIM_TARIFS[tariffCode].label}`;
-      document.getElementById('simTotal').textContent = simFormatEuro(total);
+      simSetTotalDisplay(total);
 
       const rows = [];
       rows.push([`Prise en charge`, simFormatEuro(SIM_PRISE_EN_CHARGE)]);
