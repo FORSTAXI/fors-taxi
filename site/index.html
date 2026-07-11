@@ -1054,6 +1054,60 @@
     }
     .sim-map-swatch-course { background: var(--black); }
 
+    /* ---------- IDÉES À PROXIMITÉ ---------- */
+    .sim-nearby-wrap { margin-top: 32px; }
+    .sim-nearby-intro {
+      font-size: 14px;
+      color: var(--grey-500);
+      margin-bottom: 16px;
+    }
+    .sim-nearby-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .sim-nearby-card {
+      background: var(--grey-100);
+      border-radius: 16px;
+      padding: 18px 20px;
+      transition: background 0.2s var(--ease);
+    }
+    .sim-nearby-card:hover { background: var(--yellow-soft); }
+    .sim-nearby-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--grey-500);
+      margin-bottom: 6px;
+    }
+    .sim-nearby-name {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 4px;
+    }
+    .sim-nearby-dist {
+      font-size: 12px;
+      color: var(--grey-500);
+    }
+    .sim-nearby-loading {
+      grid-column: 1 / -1;
+      font-size: 14px;
+      color: var(--grey-500);
+      padding: 12px 0;
+    }
+    .sim-nearby-attrib {
+      grid-column: 1 / -1;
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--grey-500);
+      line-height: 1.5;
+    }
+
     /* ---------- GRILLE TARIFAIRE ---------- */
     .tariff-grid-wrap {
       margin-top: 88px;
@@ -2056,6 +2110,12 @@
         </div>
       </div>
 
+      <div class="sim-nearby-wrap" id="simNearbyWrap" style="display:none;">
+        <div class="sim-map-label">🎡 Idées à proximité de votre arrivée</div>
+        <p class="sim-nearby-intro">Patient, touriste ou simple curieux : voici ce qu'il y a à voir ou à faire autour de votre destination.</p>
+        <div class="sim-nearby-list" id="simNearbyList"></div>
+      </div>
+
       <div class="tariff-grid-wrap">
         <div class="section-head">
           <span class="section-eyebrow">Grille tarifaire officielle</span>
@@ -2614,6 +2674,88 @@
       });
     }
 
+    // ---------- Idées à proximité (Overpass API / OpenStreetMap, gratuit, sans clé) ----------
+    function simHaversine(lat1, lon1, lat2, lon2) {
+      const R = 6371000;
+      const toRad = d => (d * Math.PI) / 180;
+      const dLat = toRad(lat2 - lat1);
+      const dLon = toRad(lon2 - lon1);
+      const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+      return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    }
+
+    function simFormatDistance(m) {
+      if (m < 1000) return Math.round(m / 50) * 50 + ' m';
+      return (m / 1000).toFixed(1) + ' km';
+    }
+
+    function simNearbyCategoryLabel(tags) {
+      if (tags.tourism === 'museum') return 'Musée';
+      if (tags.tourism === 'viewpoint') return 'Point de vue';
+      if (tags.tourism === 'gallery' || tags.tourism === 'artwork') return 'Art';
+      if (tags.tourism === 'zoo') return 'Zoo';
+      if (tags.tourism === 'theme_park') return "Parc d'attractions";
+      if (tags.tourism === 'attraction') return 'Site touristique';
+      if (tags.historic) return 'Site historique';
+      if (tags.leisure === 'park') return 'Parc';
+      return 'À voir';
+    }
+
+    async function simFetchNearbyActivities(lat, lon) {
+      const wrap = document.getElementById('simNearbyWrap');
+      const list = document.getElementById('simNearbyList');
+      if (!wrap || !list) return;
+      wrap.style.display = 'block';
+      list.innerHTML = '<div class="sim-nearby-loading">Recherche des idées à proximité…</div>';
+
+      const query = `[out:json][timeout:15];(
+        node["tourism"~"^(attraction|museum|viewpoint|gallery|artwork|zoo|theme_park)$"](around:2500,${lat},${lon});
+        way["tourism"~"^(attraction|museum|viewpoint|gallery|artwork|zoo|theme_park)$"](around:2500,${lat},${lon});
+        node["historic"](around:2500,${lat},${lon});
+        way["historic"](around:2500,${lat},${lon});
+        node["leisure"="park"](around:2500,${lat},${lon});
+      );out center 25 tags;`;
+
+      try {
+        const res = await fetch('https://overpass-api.de/api/interpreter', {
+          method: 'POST',
+          body: 'data=' + encodeURIComponent(query)
+        });
+        if (!res.ok) throw new Error('overpass failed');
+        const data = await res.json();
+
+        const seen = new Set();
+        const items = [];
+        (data.elements || []).forEach(el => {
+          const name = el.tags && el.tags.name;
+          if (!name || seen.has(name)) return;
+          const elat = el.lat || (el.center && el.center.lat);
+          const elon = el.lon || (el.center && el.center.lon);
+          if (elat == null || elon == null) return;
+          seen.add(name);
+          items.push({ name, distM: simHaversine(lat, lon, elat, elon), tag: simNearbyCategoryLabel(el.tags) });
+        });
+        items.sort((a, b) => a.distM - b.distM);
+        const top = items.slice(0, 6);
+
+        if (!top.length) {
+          list.innerHTML = '<div class="sim-nearby-loading">Aucun lieu répertorié à proximité immédiate sur OpenStreetMap.</div>';
+          return;
+        }
+
+        list.innerHTML = top.map(it => `
+          <div class="sim-nearby-card">
+            <span class="sim-nearby-tag">${it.tag}</span>
+            <span class="sim-nearby-name">${it.name}</span>
+            <span class="sim-nearby-dist">${simFormatDistance(it.distM)}</span>
+          </div>
+        `).join('') +
+          '<p class="sim-nearby-attrib">Données © contributeurs OpenStreetMap, licence ODbL. Informations communautaires non garanties : vérifiez horaires et disponibilité avant votre visite.</p>';
+      } catch (err) {
+        list.innerHTML = '<div class="sim-nearby-loading">Recherche indisponible pour le moment, réessayez plus tard.</div>';
+      }
+    }
+
     async function simTryComputeRoute() {
       const from = document.getElementById('simFrom');
       const to = document.getElementById('simTo');
@@ -2795,7 +2937,13 @@
     }
 
     simSetupAddressField('simFrom', 'simFromSuggestions', () => { simTryComputeApproach(); simTryComputeRoute(); });
-    simSetupAddressField('simTo', 'simToSuggestions', () => simTryComputeRoute());
+    simSetupAddressField('simTo', 'simToSuggestions', () => {
+      simTryComputeRoute();
+      const to = document.getElementById('simTo');
+      if (to.dataset.lat && to.dataset.lon) {
+        simFetchNearbyActivities(parseFloat(to.dataset.lat), parseFloat(to.dataset.lon));
+      }
+    });
 
     simSetupClearButton('simFrom', 'from', () => {
       simClearMapLine('approach');
@@ -2816,6 +2964,8 @@
       simDistanceSource = 'none';
       document.getElementById('simDistanceStatus').textContent = 'Renseignez les deux adresses pour un calcul automatique de la distance.';
       document.getElementById('simDistanceStatus').className = 'sim-distance-status';
+      document.getElementById('simNearbyWrap').style.display = 'none';
+      document.getElementById('simNearbyList').innerHTML = '';
     });
 
     if (document.getElementById('simDistance')) simCalculate();
