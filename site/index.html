@@ -1878,7 +1878,7 @@
           <div class="sim-field">
             <div class="sim-field-label">
               <span>Trajet</span>
-              <span class="sim-field-value" id="simDistanceVal">20 km</span>
+              <span class="sim-field-value" id="simDistanceVal">0 km</span>
             </div>
             <div class="sim-address">
               <input type="text" id="simFrom" class="sim-number sim-address-input" placeholder="Adresse de départ" autocomplete="off" />
@@ -1957,7 +1957,7 @@
         </div>
 
         <div class="sim-result">
-          <span class="sim-result-tariff" id="simTariffBadge">Tarif A</span>
+          <span class="sim-result-tariff" id="simTariffBadge">En attente du trajet</span>
           <div class="sim-result-amount" id="simTotal">0,00 €</div>
           <div class="sim-result-label">Estimation indicative, suppléments inclus</div>
 
@@ -2341,10 +2341,10 @@
     const SIM_BASE = { lat: 45.924558, lon: 5.224911, label: 'Villieu-Loyes-Mollon' };
 
     const simState = { tripType: 'aller', time: 'jour' };
-    let simDistanceKm = 20;
-    let simDistanceSource = 'manual';
+    let simDistanceKm = 0;
+    let simDistanceSource = 'none';
     let simApproachKm = 0;
-    let simApproachSource = 'manual';
+    let simApproachSource = 'none';
 
     function simFormatEuro(n) {
       return n.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
@@ -2492,6 +2492,14 @@
       document.getElementById('simWaitVal').textContent = wait + ' min';
       document.getElementById('simPassengersVal').textContent = passengers;
       document.getElementById('simLuggageVal').textContent = luggage;
+
+      if (distance <= 0 && simApproachKm <= 0) {
+        document.getElementById('simTariffBadge').textContent = 'En attente du trajet';
+        document.getElementById('simTotal').textContent = simFormatEuro(0);
+        document.getElementById('simBreakdown').innerHTML =
+          '<li><span>Renseignez une adresse de départ et d\'arrivée (ou saisissez une distance manuellement) pour voir l\'estimation.</span></li>';
+        return;
+      }
 
       const isRoundTrip = simState.tripType === 'allerretour';
       document.getElementById('simWaitField').style.display = isRoundTrip ? 'flex' : 'none';
