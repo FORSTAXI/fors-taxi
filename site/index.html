@@ -2612,6 +2612,14 @@
           lineCap: 'round'
         }).addTo(simMap);
       }
+
+      // Le trajet payé (jaune) doit toujours rester visible au-dessus du pointillé
+      // d'approche, quel que soit l'ordre d'arrivée des deux calculs d'itinéraire.
+      if (role === 'approach' && simMapLines.course) {
+        simMapLines.course.eachLayer(l => l.bringToFront());
+      } else if (role === 'course') {
+        simMapLines[role].eachLayer(l => l.bringToFront());
+      }
     }
 
     function simClearMapLine(role) {
