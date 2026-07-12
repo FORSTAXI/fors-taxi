@@ -3054,6 +3054,12 @@
       document.getElementById('simPassengersVal').textContent = passengers;
       document.getElementById('simLuggageVal').textContent = luggage;
 
+      const isRoundTrip = simState.tripType === 'allerretour';
+      document.getElementById('simWaitField').classList.toggle('sim-field-hidden', !isRoundTrip);
+      document.getElementById('simTripHint').textContent = isRoundTrip
+        ? 'Trajet aller-retour : course continue, tarif retour en charge (A ou B).'
+        : 'Trajet aller simple : le taxi repart à vide après vous avoir déposé (tarif C ou D).';
+
       if (distance <= 0 && simApproachKm <= 0) {
         document.getElementById('simTariffBadge').textContent = 'En attente du trajet';
         simSetTotalDisplay(0);
@@ -3061,12 +3067,6 @@
           '<li><span>Renseignez une adresse de départ et d\'arrivée (ou saisissez une distance manuellement) pour voir l\'estimation.</span></li>';
         return;
       }
-
-      const isRoundTrip = simState.tripType === 'allerretour';
-      document.getElementById('simWaitField').classList.toggle('sim-field-hidden', !isRoundTrip);
-      document.getElementById('simTripHint').textContent = isRoundTrip
-        ? 'Trajet aller-retour : course continue, tarif retour en charge (A ou B).'
-        : 'Trajet aller simple : le taxi repart à vide après vous avoir déposé (tarif C ou D).';
 
       const baseTariffCode = isRoundTrip
         ? (simState.time === 'jour' ? 'A' : 'B')
