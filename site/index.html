@@ -2905,13 +2905,23 @@
     }
 
     function simNearbyCategoryLabel(tags) {
+      if (tags.historic === 'castle') return 'Château';
+      if (tags.historic === 'fort') return 'Fort';
+      if (tags.historic === 'manor') return 'Manoir';
+      if (tags.historic === 'monastery' || tags.historic === 'abbey') return 'Abbaye · Monastère';
+      if (tags.historic === 'church' || tags.historic === 'wayside_shrine' || tags.historic === 'wayside_cross') return 'Édifice religieux';
+      if (tags.historic === 'archaeological_site') return 'Site archéologique';
+      if (tags.historic === 'ruins') return 'Ruines';
+      if (tags.historic === 'monument' || tags.historic === 'memorial') return 'Monument';
+      if (tags.historic === 'city_gate' || tags.historic === 'citywalls' || tags.historic === 'fortress') return 'Fortifications';
+      if (tags.historic === 'tower') return 'Tour historique';
+      if (tags.historic) return 'Site historique';
       if (tags.tourism === 'museum') return 'Musée';
       if (tags.tourism === 'viewpoint') return 'Point de vue';
       if (tags.tourism === 'gallery' || tags.tourism === 'artwork') return 'Art';
       if (tags.tourism === 'zoo') return 'Zoo';
       if (tags.tourism === 'theme_park') return "Parc d'attractions";
       if (tags.tourism === 'attraction') return 'Site touristique';
-      if (tags.historic) return 'Site historique';
       if (tags.leisure === 'park') return 'Parc';
       return 'À voir';
     }
@@ -2926,10 +2936,10 @@
       const query = `[out:json][timeout:15];(
         node["tourism"~"^(attraction|museum|viewpoint|gallery|artwork|zoo|theme_park)$"](around:2500,${lat},${lon});
         way["tourism"~"^(attraction|museum|viewpoint|gallery|artwork|zoo|theme_park)$"](around:2500,${lat},${lon});
-        node["historic"](around:2500,${lat},${lon});
-        way["historic"](around:2500,${lat},${lon});
+        node["historic"](around:4500,${lat},${lon});
+        way["historic"](around:4500,${lat},${lon});
         node["leisure"="park"](around:2500,${lat},${lon});
-      );out center 25 tags;`;
+      );out center 40 tags;`;
 
       try {
         const res = await fetch('https://overpass-api.de/api/interpreter', {
@@ -2948,9 +2958,9 @@
           const elon = el.lon || (el.center && el.center.lon);
           if (elat == null || elon == null) return;
           seen.add(name);
-          items.push({ name, distM: simHaversine(lat, lon, elat, elon), tag: simNearbyCategoryLabel(el.tags) });
+          items.push({ name, distM: simHaversine(lat, lon, elat, elon), tag: simNearbyCategoryLabel(el.tags), isHistoric: !!(el.tags && el.tags.historic) });
         });
-        items.sort((a, b) => a.distM - b.distM);
+        items.sort((a, b) => (a.isHistoric === b.isHistoric) ? a.distM - b.distM : (a.isHistoric ? -1 : 1));
         const top = items.slice(0, 6);
 
         if (!top.length) {
