@@ -1094,11 +1094,11 @@
       to { opacity: 1; transform: scale(1); }
     }
     .sim-map {
-      height: 220px;
+      height: 260px;
       width: 100%;
       border-radius: 14px;
       overflow: hidden;
-      background: var(--grey-100);
+      background: var(--black);
     }
     .sim-map-legend {
       display: flex;
@@ -1140,8 +1140,15 @@
       line-height: 1;
     }
     .sim-map-pin-base { background: var(--white); }
-    .sim-map-pin-from { background: var(--black); }
-    .sim-map-pin-to { background: var(--yellow); }
+    .sim-map-pin-from { background: var(--black); border-color: var(--yellow); }
+    .sim-map-pin-to {
+      background: var(--yellow);
+      animation: simPinGlow 1.8s ease-in-out infinite;
+    }
+    @keyframes simPinGlow {
+      0%, 100% { box-shadow: 0 3px 8px rgba(0,0,0,0.35), 0 0 0 0 rgba(255,222,89,0.55); }
+      50% { box-shadow: 0 3px 8px rgba(0,0,0,0.35), 0 0 0 9px rgba(255,222,89,0); }
+    }
 
     /* ---------- IDÉES À PROXIMITÉ ---------- */
     .sim-nearby-wrap { margin-top: 32px; }
@@ -2714,7 +2721,7 @@
 
       simMap = new maplibregl.Map({
         container: 'simMap',
-        style: 'https://tiles.openfreemap.org/styles/positron',
+        style: 'https://tiles.openfreemap.org/styles/dark',
         center: [SIM_BASE.lon, SIM_BASE.lat],
         zoom: 11
       });
@@ -2767,9 +2774,9 @@
       if (pts.length > 1) {
         const bounds = new maplibregl.LngLatBounds(pts[0], pts[0]);
         pts.forEach(p => bounds.extend(p));
-        simMap.fitBounds(bounds, { padding: 28, maxZoom: 14, duration: 0 });
+        simMap.fitBounds(bounds, { padding: 28, maxZoom: 14, duration: 900, essential: true });
       } else {
-        simMap.jumpTo({ center: pts[0], zoom: 11 });
+        simMap.flyTo({ center: pts[0], zoom: 11, duration: 900, essential: true });
       }
       setTimeout(() => simMap.resize(), 200);
     }
