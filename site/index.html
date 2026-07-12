@@ -840,6 +840,18 @@
       flex-direction: column;
       gap: 10px;
     }
+    .sim-field-collapsible {
+      overflow: hidden;
+      max-height: 120px;
+      opacity: 1;
+      transition: max-height 0.35s ease, opacity 0.25s ease, margin-top 0.35s ease;
+    }
+    .sim-field-collapsible.sim-field-hidden {
+      max-height: 0;
+      opacity: 0;
+      margin-top: -22px;
+      pointer-events: none;
+    }
     .sim-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -2235,7 +2247,7 @@
             </div>
           </div>
 
-          <div class="sim-field" id="simWaitField" style="display:none;">
+          <div class="sim-field sim-field-collapsible sim-field-hidden" id="simWaitField">
             <div class="sim-field-label">
               <span>Attente sur place</span>
               <span class="sim-field-value" id="simWaitVal">0 min</span>
@@ -3051,7 +3063,7 @@
       }
 
       const isRoundTrip = simState.tripType === 'allerretour';
-      document.getElementById('simWaitField').style.display = isRoundTrip ? 'flex' : 'none';
+      document.getElementById('simWaitField').classList.toggle('sim-field-hidden', !isRoundTrip);
       document.getElementById('simTripHint').textContent = isRoundTrip
         ? 'Trajet aller-retour : course continue, tarif retour en charge (A ou B).'
         : 'Trajet aller simple : le taxi repart à vide après vous avoir déposé (tarif C ou D).';
