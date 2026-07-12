@@ -3002,6 +3002,19 @@
       const status = document.getElementById('simApproachStatus');
       if (!from.dataset.lat) return;
 
+      const straightLineKm = simHaversine(SIM_BASE.lat, SIM_BASE.lon, parseFloat(from.dataset.lat), parseFloat(from.dataset.lon)) / 1000;
+      if (straightLineKm < 1.5) {
+        simApproachKm = 0;
+        simApproachSource = 'route';
+        status.textContent = `Départ depuis ${SIM_BASE.label} : pas de trajet d'approche, le taxi est déjà sur place.`;
+        status.className = 'sim-distance-status ok';
+        document.getElementById('simApproachManual').value = 0;
+        simClearMapLine('approach');
+        simFitMapBounds();
+        simCalculate();
+        return;
+      }
+
       status.textContent = "Calcul du trajet d'approche…";
       status.className = 'sim-distance-status';
 
