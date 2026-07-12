@@ -842,7 +842,7 @@
     }
     .sim-field-collapsible {
       overflow: hidden;
-      max-height: 120px;
+      max-height: 200px;
       opacity: 1;
       transition: max-height 0.35s ease, opacity 0.25s ease, margin-top 0.35s ease;
     }
@@ -3055,7 +3055,9 @@
       document.getElementById('simLuggageVal').textContent = luggage;
 
       const isRoundTrip = simState.tripType === 'allerretour';
-      document.getElementById('simWaitField').classList.toggle('sim-field-hidden', !isRoundTrip);
+      const waitFieldEl = document.getElementById('simWaitField');
+      if (!isRoundTrip) waitFieldEl.style.overflow = 'hidden';
+      waitFieldEl.classList.toggle('sim-field-hidden', !isRoundTrip);
       document.getElementById('simTripHint').textContent = isRoundTrip
         ? 'Trajet aller-retour : course continue, tarif retour en charge (A ou B).'
         : 'Trajet aller simple : le taxi repart à vide après vous avoir déposé (tarif C ou D).';
@@ -3111,6 +3113,14 @@
 
     simSetupToggle('simTripType', v => simState.tripType = v);
     simSetupToggle('simTime', v => simState.time = v);
+
+    const simWaitFieldEl = document.getElementById('simWaitField');
+    if (simWaitFieldEl) {
+      simWaitFieldEl.addEventListener('transitionend', (e) => {
+        if (e.propertyName !== 'max-height') return;
+        simWaitFieldEl.style.overflow = simWaitFieldEl.classList.contains('sim-field-hidden') ? 'hidden' : 'visible';
+      });
+    }
 
     ['simWait', 'simPassengers', 'simLuggage', 'simSnow', 'simToll'].forEach(id => {
       const el = document.getElementById(id);
