@@ -3075,7 +3075,7 @@
         ? 'Trajet aller-retour : course continue, tarif retour en charge (A ou B).'
         : 'Trajet aller simple : le taxi repart à vide après vous avoir déposé (tarif C ou D).';
 
-      if (distance <= 0 && simApproachKm <= 0) {
+      if (simDistanceSource === 'none' && simApproachSource === 'none') {
         document.getElementById('simTariffBadge').textContent = 'En attente du trajet';
         simSetTotalDisplay(0);
         document.getElementById('simBreakdown').innerHTML =
