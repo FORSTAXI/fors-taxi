@@ -1898,37 +1898,6 @@
     </a>
   </header>
 
-  <!-- ====== CHOIX DU TRAJET ====== -->
-  <section class="section section-cream reveal" id="choix">
-    <div class="container">
-      <div class="section-head">
-        <span class="section-eyebrow">Deux façons de voyager</span>
-        <h2>Quel trajet vous <span class="accent">amène</span> ?</h2>
-        <p>FORS TAXI, c'est deux activités complémentaires avec le même chauffeur et le même véhicule. Choisissez la vôtre.</p>
-      </div>
-
-      <div class="choix-grid">
-        <a href="#services" class="choix-card">
-          <span class="choix-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-          </span>
-          <h3>Transport médical</h3>
-          <p>Radiothérapie, chimiothérapie, dialyse, hospitalisations, consultations. Prise en charge CPAM sur présentation d'un bon de transport.</p>
-          <span class="choix-link">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-        </a>
-
-        <a href="#classique" class="choix-card choix-card-dark">
-          <span class="choix-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17h14M5 17a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm14 0a2 2 0 1 0 4 0 2 2 0 0 0-4 0ZM5 17V9l2-5h10l2 5v8"/></svg>
-          </span>
-          <h3>Taxi du quotidien</h3>
-          <p>Gares, aéroports, longue distance, événements. Estimez votre trajet en un instant avec notre simulateur de tarif.</p>
-          <span class="choix-link">Découvrir + simulateur <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-        </a>
-      </div>
-    </div>
-  </section>
-
   <!-- ====== À PROPOS / THOMAS ====== -->
   <section class="section section-light reveal" id="about">
     <div class="container">
@@ -1970,6 +1939,37 @@
             <span class="quote-author">Thomas Houmeur</span>
           </blockquote>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== CHOIX DU TRAJET ====== -->
+  <section class="section section-cream reveal" id="choix">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-eyebrow">Deux façons de voyager</span>
+        <h2>Quel trajet vous <span class="accent">amène</span> ?</h2>
+        <p>FORS TAXI, c'est deux activités complémentaires avec le même chauffeur et le même véhicule. Choisissez la vôtre.</p>
+      </div>
+
+      <div class="choix-grid">
+        <a href="#services" class="choix-card">
+          <span class="choix-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          </span>
+          <h3>Transport médical</h3>
+          <p>Radiothérapie, chimiothérapie, dialyse, hospitalisations, consultations. Prise en charge CPAM sur présentation d'un bon de transport.</p>
+          <span class="choix-link">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+
+        <a href="#classique" class="choix-card choix-card-dark">
+          <span class="choix-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17h14M5 17a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm14 0a2 2 0 1 0 4 0 2 2 0 0 0-4 0ZM5 17V9l2-5h10l2 5v8"/></svg>
+          </span>
+          <h3>Taxi du quotidien</h3>
+          <p>Gares, aéroports, longue distance, événements. Estimez votre trajet en un instant avec notre simulateur de tarif.</p>
+          <span class="choix-link">Découvrir + simulateur <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
       </div>
     </div>
   </section>
@@ -2194,7 +2194,7 @@
               <div class="sim-suggestions" id="simFromSuggestions"></div>
             </div>
             <div class="sim-address">
-              <input type="text" id="simTo" class="sim-number sim-address-input" placeholder="Adresse d'arrivée (hôpital, clinique…)" autocomplete="off" />
+              <input type="text" id="simTo" class="sim-number sim-address-input" placeholder="Adresse d'arrivée" autocomplete="off" />
               <button type="button" class="sim-address-clear" id="simToClear" aria-label="Effacer l'adresse d'arrivée">✕</button>
               <div class="sim-suggestions" id="simToSuggestions"></div>
             </div>
