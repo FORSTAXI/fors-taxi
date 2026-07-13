@@ -1134,13 +1134,11 @@
       justify-content: center;
       width: 100%;
       height: 100%;
-      border-radius: 50% 50% 50% 0;
-      transform: rotate(-45deg);
+      border-radius: 50%;
       box-shadow: 0 3px 8px rgba(0,0,0,0.35);
       border: 2px solid var(--white);
     }
     .sim-map-pin span {
-      transform: rotate(45deg);
       font-size: 14px;
       line-height: 1;
     }
@@ -1152,7 +1150,6 @@
       position: absolute;
       inset: -2px;
       border-radius: 50%;
-      transform: rotate(45deg);
       animation: simPinGlow 1.8s ease-in-out infinite;
       pointer-events: none;
     }
@@ -2710,11 +2707,11 @@
     let simMapPendingLines = {};
 
     function simPinEl(role, emoji) {
-      // MapLibre applique lui-même un style "transform" (translate/rotation) sur
-      // l'élément racine du marker pour le positionner à chaque frame. On isole
-      // donc notre propre rotation (effet goutte d'eau) sur un enfant, pour ne
-      // jamais entrer en conflit avec cette gestion interne (sinon le pin/emoji
-      // semble trembler ou se déplacer pendant les animations de caméra).
+      // MapLibre applique lui-même un style "transform" (translate) sur l'élément
+      // racine du marker pour le positionner à chaque frame. On isole donc notre
+      // propre habillage visuel sur un enfant, pour ne jamais entrer en conflit
+      // avec cette gestion interne (sinon le pin/emoji semble trembler pendant
+      // les animations de caméra).
       const wrap = document.createElement('div');
       wrap.className = 'sim-map-pin-wrap';
       wrap.innerHTML = `<div class="sim-map-pin sim-map-pin-${role}"><span>${emoji}</span></div>`;
@@ -2788,7 +2785,7 @@
         });
       });
 
-      simMapMarkers.base = new maplibregl.Marker({ element: simPinEl('base', '🏠'), anchor: 'bottom' })
+      simMapMarkers.base = new maplibregl.Marker({ element: simPinEl('base', '🏠'), anchor: 'center' })
         .setLngLat([SIM_BASE.lon, SIM_BASE.lat])
         .setPopup(new maplibregl.Popup({ offset: 24 }).setText('Base FORS TAXI · Villieu-Loyes-Mollon'))
         .addTo(simMap);
@@ -2822,7 +2819,7 @@
       if (!map) return;
       if (simMapMarkers[role]) simMapMarkers[role].remove();
       const emoji = role === 'from' ? '🧍' : '📍';
-      simMapMarkers[role] = new maplibregl.Marker({ element: simPinEl(role, emoji), anchor: 'bottom' })
+      simMapMarkers[role] = new maplibregl.Marker({ element: simPinEl(role, emoji), anchor: 'center' })
         .setLngLat([lon, lat])
         .setPopup(new maplibregl.Popup({ offset: 24 }).setText(label))
         .addTo(simMap);
