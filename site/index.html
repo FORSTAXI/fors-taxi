@@ -2732,6 +2732,12 @@
       if (simMap) return simMap;
       if (typeof maplibregl === 'undefined') return null;
 
+      // Le conteneur doit avoir une taille réelle (visible) avant l'initialisation :
+      // une carte MapLibre (WebGL) créée dans un parent encore display:none reste
+      // mal calée en interne, même après un resize() ultérieur, contrairement à
+      // Leaflet qui tolère très bien ce cas.
+      document.getElementById('simMapWrap').style.display = 'block';
+
       simMap = new maplibregl.Map({
         container: 'simMap',
         style: 'https://tiles.openfreemap.org/styles/dark',
