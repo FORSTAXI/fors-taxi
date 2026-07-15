@@ -1653,6 +1653,14 @@
       transform: translateY(-1px);
     }
     .form-submit svg { width: 18px; height: 18px; }
+    .form-status {
+      margin-top: 12px;
+      font-size: 13px;
+      text-align: center;
+      min-height: 18px;
+    }
+    .form-status.ok { color: #1a7a3a; }
+    .form-status.err { color: #b3261e; }
 
     /* ---------- THOMAS / ABOUT ---------- */
     .about {
@@ -2568,6 +2576,7 @@
           Envoyer ma demande
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.2-.6-.4zM12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.3A10 10 0 1 0 12 2z"/></svg>
         </button>
+        <p class="form-status" id="formStatus" aria-live="polite"></p>
       </form>
     </div>
   </section>
@@ -2706,6 +2715,11 @@
 
       // Envoi en parallèle vers Web3Forms (e-mail), sans bloquer WhatsApp.
       // FormData = méthode la plus compatible recommandée par Web3Forms (plutôt que du JSON brut).
+      const statusEl = document.getElementById('formStatus');
+      if (statusEl) {
+        statusEl.className = 'form-status';
+        statusEl.textContent = '';
+      }
       if (WEB3FORMS_ACCESS_KEY && WEB3FORMS_ACCESS_KEY !== 'VOTRE_CLE_ICI') {
         const web3formsData = new FormData();
         web3formsData.append('access_key', WEB3FORMS_ACCESS_KEY);
@@ -2719,9 +2733,22 @@
         web3formsData.append('Notes', data.notes || '(aucune)');
 
         fetch('https://api.web3forms.com/submit', { method: 'POST', body: web3formsData })
-          .then(res => res.json())
-          .then(json => { if (!json.success) console.warn('Web3Forms a refusé la soumission :', json); })
-          .catch(err => console.warn('Web3Forms erreur réseau :', err));
+          .then(res => res.json().catch(() => ({ success: false, message: `Réponse HTTP ${res.status}` })))
+          .then(json => {
+            if (!statusEl) return;
+            if (json.success) {
+              statusEl.className = 'form-status ok';
+              statusEl.textContent = '✓ E-mail envoyé à Thomas.';
+            } else {
+              statusEl.className = 'form-status err';
+              statusEl.textContent = `E-mail non envoyé (${json.message || 'erreur inconnue'}) · utilisez WhatsApp ou le téléphone.`;
+            }
+          })
+          .catch(err => {
+            if (!statusEl) return;
+            statusEl.className = 'form-status err';
+            statusEl.textContent = `E-mail non envoyé (erreur réseau) · utilisez WhatsApp ou le téléphone.`;
+          });
       }
 
       const message =
