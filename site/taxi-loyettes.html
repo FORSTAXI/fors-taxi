@@ -52,6 +52,9 @@
     @media (max-width: 640px) { .cards { grid-template-columns: 1fr; } }
     .card { background: var(--grey-100); border-radius: 16px; padding: 24px; transition: transform 0.25s ease, box-shadow 0.25s ease; }
     .card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,0,0,0.08); }
+    .card-dark { background: var(--black); }
+    .card-dark h3 { color: var(--yellow); }
+    .card-dark p { color: rgba(255,255,255,0.7); }
     .card h3 { font-family: var(--font-display); font-size: 17px; margin-bottom: 8px; }
     .card p { font-size: 14px; margin: 0; }
     .faq dt { font-weight: 700; color: var(--black); margin-top: 18px; }
@@ -114,7 +117,7 @@
             <h3>Trajets médicaux</h3>
             <p>Dialyse, chimiothérapie, radiothérapie, consultations, sorties d'hospitalisation. Prise en charge CPAM.</p>
           </div>
-          <div class="card">
+          <div class="card card-dark">
             <h3>Taxi du quotidien</h3>
             <p>Métropole de Lyon, aéroport Lyon Saint-Exupéry, gares, longue distance.</p>
           </div>
