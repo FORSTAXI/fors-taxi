@@ -2504,7 +2504,7 @@
       <div class="booking-head">
         <span class="section-eyebrow" style="color: var(--black); opacity: 0.6; border-color: var(--black);">Contact</span>
         <h2>Contactez-nous, on organise votre trajet ensemble.</h2>
-        <p>Remplissez le formulaire : votre demande est envoyée directement sur WhatsApp. Thomas vous rappelle pour organiser la date et l'heure qui vous conviennent.</p>
+        <p>Remplissez le formulaire : votre demande est envoyée directement par e-mail à Thomas. Il vous rappelle pour organiser la date et l'heure qui vous conviennent.</p>
 
         <div class="booking-quickactions">
           <a href="tel:+33650225071" class="quick-action">
@@ -2522,7 +2522,7 @@
         </div>
       </div>
 
-      <form class="booking-form" id="bookingForm" onsubmit="return submitToWhatsApp(event)">
+      <form class="booking-form" id="bookingForm" onsubmit="return submitContactForm(event)">
         <h3>Demande de contact</h3>
         <p>Thomas vous rappelle pour organiser le trajet, la date et l'heure.</p>
 
@@ -2698,10 +2698,10 @@
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-    // ---------- Form → WhatsApp ----------
+    // ---------- Form → e-mail (Web3Forms) ----------
     const WEB3FORMS_ACCESS_KEY = '0e28600c-036b-4e6b-bec5-e6aaefa72376';
 
-    function submitToWhatsApp(e) {
+    function submitContactForm(e) {
       e.preventDefault();
       const f = e.target;
       const data = {
@@ -2713,56 +2713,46 @@
         notes: f.notes.value
       };
 
-      // Envoi en parallèle vers Web3Forms (e-mail), sans bloquer WhatsApp.
-      // FormData = méthode la plus compatible recommandée par Web3Forms (plutôt que du JSON brut).
       const statusEl = document.getElementById('formStatus');
+      const submitBtn = f.querySelector('.form-submit');
       if (statusEl) {
         statusEl.className = 'form-status';
-        statusEl.textContent = '';
+        statusEl.textContent = 'Envoi en cours…';
       }
-      if (WEB3FORMS_ACCESS_KEY && WEB3FORMS_ACCESS_KEY !== 'VOTRE_CLE_ICI') {
-        const web3formsData = new FormData();
-        web3formsData.append('access_key', WEB3FORMS_ACCESS_KEY);
-        web3formsData.append('subject', `Nouvelle demande de contact FORS TAXI · ${data.nom}`);
-        web3formsData.append('from_name', 'Formulaire FORS TAXI');
-        web3formsData.append('Nom', data.nom);
-        web3formsData.append('Téléphone', data.tel);
-        web3formsData.append('Départ', data.depart);
-        web3formsData.append('Arrivée', data.arrivee);
-        web3formsData.append('Type de trajet', data.type);
-        web3formsData.append('Notes', data.notes || '(aucune)');
+      if (submitBtn) submitBtn.disabled = true;
 
-        fetch('https://api.web3forms.com/submit', { method: 'POST', body: web3formsData })
-          .then(res => res.json().catch(() => ({ success: false, message: `Réponse HTTP ${res.status}` })))
-          .then(json => {
-            if (!statusEl) return;
-            if (json.success) {
-              statusEl.className = 'form-status ok';
-              statusEl.textContent = '✓ E-mail envoyé à Thomas.';
-            } else {
-              statusEl.className = 'form-status err';
-              statusEl.textContent = `E-mail non envoyé (${json.message || 'erreur inconnue'}) · utilisez WhatsApp ou le téléphone.`;
-            }
-          })
-          .catch(err => {
-            if (!statusEl) return;
+      const web3formsData = new FormData();
+      web3formsData.append('access_key', WEB3FORMS_ACCESS_KEY);
+      web3formsData.append('subject', `Nouvelle demande de contact FORS TAXI · ${data.nom}`);
+      web3formsData.append('from_name', 'Formulaire FORS TAXI');
+      web3formsData.append('Nom', data.nom);
+      web3formsData.append('Téléphone', data.tel);
+      web3formsData.append('Départ', data.depart);
+      web3formsData.append('Arrivée', data.arrivee);
+      web3formsData.append('Type de trajet', data.type);
+      web3formsData.append('Notes', data.notes || '(aucune)');
+
+      fetch('https://api.web3forms.com/submit', { method: 'POST', body: web3formsData })
+        .then(res => res.json().catch(() => ({ success: false, message: `Réponse HTTP ${res.status}` })))
+        .then(json => {
+          if (submitBtn) submitBtn.disabled = false;
+          if (!statusEl) return;
+          if (json.success) {
+            statusEl.className = 'form-status ok';
+            statusEl.textContent = '✓ Votre demande a bien été envoyée à Thomas, il vous recontacte rapidement.';
+            f.reset();
+          } else {
             statusEl.className = 'form-status err';
-            statusEl.textContent = `E-mail non envoyé (erreur réseau) · utilisez WhatsApp ou le téléphone.`;
-          });
-      }
+            statusEl.textContent = `Échec de l'envoi (${json.message || 'erreur inconnue'}) · merci d'appeler ou d'utiliser WhatsApp ci-dessus.`;
+          }
+        })
+        .catch(() => {
+          if (submitBtn) submitBtn.disabled = false;
+          if (!statusEl) return;
+          statusEl.className = 'form-status err';
+          statusEl.textContent = `Échec de l'envoi (erreur réseau) · merci d'appeler ou d'utiliser WhatsApp ci-dessus.`;
+        });
 
-      const message =
-        `Bonjour Thomas,\n\nDemande de contact FORS TAXI :\n\n` +
-        `👤 ${data.nom}\n` +
-        `📞 ${data.tel}\n\n` +
-        `📍 Départ : ${data.depart}\n` +
-        `🏁 Arrivée : ${data.arrivee}\n\n` +
-        `Type de trajet : ${data.type}\n` +
-        (data.notes ? `\nNotes : ${data.notes}` : '');
-
-      const phoneNumber = '33650225071';
-      const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-      window.open(url, '_blank');
       return false;
     }
 
