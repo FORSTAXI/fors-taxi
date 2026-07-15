@@ -2704,23 +2704,24 @@
         notes: f.notes.value
       };
 
-      // Envoi silencieux en parallèle vers Web3Forms (e-mail), sans bloquer WhatsApp.
+      // Envoi en parallèle vers Web3Forms (e-mail), sans bloquer WhatsApp.
+      // FormData = méthode la plus compatible recommandée par Web3Forms (plutôt que du JSON brut).
       if (WEB3FORMS_ACCESS_KEY && WEB3FORMS_ACCESS_KEY !== 'VOTRE_CLE_ICI') {
-        fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({
-            access_key: WEB3FORMS_ACCESS_KEY,
-            subject: `Nouvelle demande de contact FORS TAXI · ${data.nom}`,
-            from_name: 'Formulaire FORS TAXI',
-            Nom: data.nom,
-            'Téléphone': data.tel,
-            'Départ': data.depart,
-            'Arrivée': data.arrivee,
-            'Type de trajet': data.type,
-            Notes: data.notes || '(aucune)'
-          })
-        }).catch(() => {});
+        const web3formsData = new FormData();
+        web3formsData.append('access_key', WEB3FORMS_ACCESS_KEY);
+        web3formsData.append('subject', `Nouvelle demande de contact FORS TAXI · ${data.nom}`);
+        web3formsData.append('from_name', 'Formulaire FORS TAXI');
+        web3formsData.append('Nom', data.nom);
+        web3formsData.append('Téléphone', data.tel);
+        web3formsData.append('Départ', data.depart);
+        web3formsData.append('Arrivée', data.arrivee);
+        web3formsData.append('Type de trajet', data.type);
+        web3formsData.append('Notes', data.notes || '(aucune)');
+
+        fetch('https://api.web3forms.com/submit', { method: 'POST', body: web3formsData })
+          .then(res => res.json())
+          .then(json => { if (!json.success) console.warn('Web3Forms a refusé la soumission :', json); })
+          .catch(err => console.warn('Web3Forms erreur réseau :', err));
       }
 
       const message =
