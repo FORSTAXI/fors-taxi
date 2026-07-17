@@ -22,4 +22,7 @@
   <url><loc>https://fors-taxi.fr/taxi-lyon.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://fors-taxi.fr/taxi-geneve.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://fors-taxi.fr/taxi-hauteville-lompnes.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://fors-taxi.fr/taxi-charnoz-sur-ain.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://fors-taxi.fr/taxi-saint-rambert-en-bugey.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://fors-taxi.fr/taxi-tenay.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>
