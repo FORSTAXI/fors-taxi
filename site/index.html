@@ -2256,7 +2256,7 @@
 
       <div class="sim-info">
         <strong>💡 C'est quoi le « trajet d'approche » ?</strong>
-        <p>Avant de venir vous chercher, le taxi part de sa base à Villieu-Loyes-Mollon et roule jusqu'à votre adresse de départ. Ce trajet à vide est lui aussi facturé, comme le prévoit la réglementation : c'est le cas pour tous les taxis, pas seulement FORS TAXI. Renseignez simplement votre adresse de départ ci-dessous : le simulateur calcule cette distance et l'ajoute automatiquement à l'estimation.</p>
+        <p>Avant de venir vous chercher, le taxi part de sa station à Villieu-Loyes-Mollon et roule jusqu'à votre adresse de départ. Ce trajet à vide est lui aussi facturé, comme le prévoit la réglementation : c'est le cas pour tous les taxis, pas seulement FORS TAXI. Renseignez simplement votre adresse de départ ci-dessous : le simulateur calcule cette distance et l'ajoute automatiquement à l'estimation.</p>
       </div>
 
       <div class="sim">
@@ -2456,7 +2456,7 @@
 
         <div class="zone-map">
           <div class="zone-map-content">
-            <div class="zone-map-label">Base d'opération</div>
+            <div class="zone-map-label">Station de taxi</div>
             <div class="zone-map-title">Plaine de<br /><span class="accent">l'Ain.</span></div>
           </div>
           <div class="zone-map-base">
@@ -2883,7 +2883,7 @@
 
       simMapMarkers.base = new maplibregl.Marker({ element: simPinEl('base', '🏠'), anchor: 'center' })
         .setLngLat([SIM_BASE.lon, SIM_BASE.lat])
-        .setPopup(new maplibregl.Popup({ offset: 24 }).setText('Base FORS TAXI · Villieu-Loyes-Mollon'))
+        .setPopup(new maplibregl.Popup({ offset: 24 }).setText('Station FORS TAXI · Villieu-Loyes-Mollon'))
         .addTo(simMap);
 
       return simMap;
