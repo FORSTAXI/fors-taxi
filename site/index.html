@@ -1406,6 +1406,62 @@
       margin-bottom: 0;
     }
 
+    /* ---------- AVIS CAROUSEL ---------- */
+    .avis-carousel-wrap {
+      position: relative;
+      max-width: 100%;
+      margin: 8px 0 40px;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 60px, #000 calc(100% - 60px), transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0, #000 60px, #000 calc(100% - 60px), transparent 100%);
+    }
+    .avis-carousel-track {
+      display: flex;
+      gap: 20px;
+      width: max-content;
+      animation: avis-scroll 32s linear infinite;
+    }
+    .avis-carousel-wrap:hover .avis-carousel-track {
+      animation-play-state: paused;
+    }
+    @keyframes avis-scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    .avis-review-card {
+      flex: 0 0 320px;
+      background: var(--grey-100);
+      border-radius: 18px;
+      padding: 24px;
+    }
+    .avis-review-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .avis-review-head svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .avis-review-head span {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--grey-500);
+      letter-spacing: 0.02em;
+    }
+    .avis-stars { display: flex; gap: 2px; margin-bottom: 12px; }
+    .avis-stars svg { width: 15px; height: 15px; }
+    .avis-review-card p {
+      font-size: 14px;
+      color: var(--grey-700);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+    .avis-review-author {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--black);
+    }
+
     /* ---------- ZONE ---------- */
     .zone {
       display: grid;
@@ -2590,6 +2646,108 @@
         <span class="section-eyebrow">Vos avis comptent</span>
         <h2>Ce que disent <span class="accent">nos clients</span>.</h2>
         <p>FORS TAXI vient tout juste de démarrer son activité. Chaque avis nous aide à nous améliorer et à rassurer les prochains clients qui hésitent encore.</p>
+      </div>
+
+      <div class="avis-carousel-wrap">
+        <div class="avis-carousel-track">
+
+          <div class="avis-review-card">
+            <div class="avis-review-head">
+              <svg viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20.4H24v7.2h11.3c-1.6 4.6-6 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l5.1-5.1C34.4 6.4 29.5 4.4 24 4.4 13.2 4.4 4.4 13.2 4.4 24S13.2 43.6 24 43.6 43.6 34.8 43.6 24c0-1.2-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.9 14.6l6 4.4C14.5 15.5 18.9 12.8 24 12.8c3.1 0 5.8 1.1 8 3l5.1-5.1C34.4 7.6 29.5 5.6 24 5.6c-7.4 0-13.8 4.2-17.1 9z"/><path fill="#4CAF50" d="M24 43.6c5.4 0 10.2-1.9 13.9-5.1l-6.4-5.4c-1.9 1.3-4.4 2.1-7.5 2.1-5.3 0-9.7-3.4-11.3-8.1l-6.2 4.5c3.3 6.5 9.9 12 17.5 12z"/><path fill="#1976D2" d="M43.6 20.5H42V20.4H24v7.2h11.3c-.8 2.2-2.2 4.1-4 5.5l6.4 5.4c-.4.4 6.9-5 6.9-14.5 0-1.2-.1-2.4-1-4z"/></svg>
+              <span>Avis Google</span>
+            </div>
+            <div class="avis-stars">
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <p>« TAXI toujours à l'heure, serviable, vous accompagne dans le service où vous allez en médical. Très honnête. Des prix totalement abordables. C'est devenu mon taxi personnel. Merci pour votre dévouement. »</p>
+            <div class="avis-review-author">Danielle Rubio</div>
+          </div>
+
+          <div class="avis-review-card">
+            <div class="avis-review-head">
+              <svg viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20.4H24v7.2h11.3c-1.6 4.6-6 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l5.1-5.1C34.4 6.4 29.5 4.4 24 4.4 13.2 4.4 4.4 13.2 4.4 24S13.2 43.6 24 43.6 43.6 34.8 43.6 24c0-1.2-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.9 14.6l6 4.4C14.5 15.5 18.9 12.8 24 12.8c3.1 0 5.8 1.1 8 3l5.1-5.1C34.4 7.6 29.5 5.6 24 5.6c-7.4 0-13.8 4.2-17.1 9z"/><path fill="#4CAF50" d="M24 43.6c5.4 0 10.2-1.9 13.9-5.1l-6.4-5.4c-1.9 1.3-4.4 2.1-7.5 2.1-5.3 0-9.7-3.4-11.3-8.1l-6.2 4.5c3.3 6.5 9.9 12 17.5 12z"/><path fill="#1976D2" d="M43.6 20.5H42V20.4H24v7.2h11.3c-.8 2.2-2.2 4.1-4 5.5l6.4 5.4c-.4.4 6.9-5 6.9-14.5 0-1.2-.1-2.4-1-4z"/></svg>
+              <span>Avis Google</span>
+            </div>
+            <div class="avis-stars">
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <p>« Chauffeur sérieux, sympathique, le trajet a été très agréable ! »</p>
+            <div class="avis-review-author">Marc Bringuier</div>
+          </div>
+
+          <div class="avis-review-card">
+            <div class="avis-review-head">
+              <svg viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20.4H24v7.2h11.3c-1.6 4.6-6 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l5.1-5.1C34.4 6.4 29.5 4.4 24 4.4 13.2 4.4 4.4 13.2 4.4 24S13.2 43.6 24 43.6 43.6 34.8 43.6 24c0-1.2-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.9 14.6l6 4.4C14.5 15.5 18.9 12.8 24 12.8c3.1 0 5.8 1.1 8 3l5.1-5.1C34.4 7.6 29.5 5.6 24 5.6c-7.4 0-13.8 4.2-17.1 9z"/><path fill="#4CAF50" d="M24 43.6c5.4 0 10.2-1.9 13.9-5.1l-6.4-5.4c-1.9 1.3-4.4 2.1-7.5 2.1-5.3 0-9.7-3.4-11.3-8.1l-6.2 4.5c3.3 6.5 9.9 12 17.5 12z"/><path fill="#1976D2" d="M43.6 20.5H42V20.4H24v7.2h11.3c-.8 2.2-2.2 4.1-4 5.5l6.4 5.4c-.4.4 6.9-5 6.9-14.5 0-1.2-.1-2.4-1-4z"/></svg>
+              <span>Avis Google</span>
+            </div>
+            <div class="avis-stars">
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <p>« Service impeccable. Chauffeur à l'heure, très agréable et conduite très sécurisante. Un grand merci pour sa patience et son attente. Je recommande sans hésiter. »</p>
+            <div class="avis-review-author">Richard Berthelot</div>
+          </div>
+
+          <div class="avis-review-card" aria-hidden="true">
+            <div class="avis-review-head">
+              <svg viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20.4H24v7.2h11.3c-1.6 4.6-6 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l5.1-5.1C34.4 6.4 29.5 4.4 24 4.4 13.2 4.4 4.4 13.2 4.4 24S13.2 43.6 24 43.6 43.6 34.8 43.6 24c0-1.2-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.9 14.6l6 4.4C14.5 15.5 18.9 12.8 24 12.8c3.1 0 5.8 1.1 8 3l5.1-5.1C34.4 7.6 29.5 5.6 24 5.6c-7.4 0-13.8 4.2-17.1 9z"/><path fill="#4CAF50" d="M24 43.6c5.4 0 10.2-1.9 13.9-5.1l-6.4-5.4c-1.9 1.3-4.4 2.1-7.5 2.1-5.3 0-9.7-3.4-11.3-8.1l-6.2 4.5c3.3 6.5 9.9 12 17.5 12z"/><path fill="#1976D2" d="M43.6 20.5H42V20.4H24v7.2h11.3c-.8 2.2-2.2 4.1-4 5.5l6.4 5.4c-.4.4 6.9-5 6.9-14.5 0-1.2-.1-2.4-1-4z"/></svg>
+              <span>Avis Google</span>
+            </div>
+            <div class="avis-stars">
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <p>« TAXI toujours à l'heure, serviable, vous accompagne dans le service où vous allez en médical. Très honnête. Des prix totalement abordables. C'est devenu mon taxi personnel. Merci pour votre dévouement. »</p>
+            <div class="avis-review-author">Danielle Rubio</div>
+          </div>
+
+          <div class="avis-review-card" aria-hidden="true">
+            <div class="avis-review-head">
+              <svg viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20.4H24v7.2h11.3c-1.6 4.6-6 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l5.1-5.1C34.4 6.4 29.5 4.4 24 4.4 13.2 4.4 4.4 13.2 4.4 24S13.2 43.6 24 43.6 43.6 34.8 43.6 24c0-1.2-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.9 14.6l6 4.4C14.5 15.5 18.9 12.8 24 12.8c3.1 0 5.8 1.1 8 3l5.1-5.1C34.4 7.6 29.5 5.6 24 5.6c-7.4 0-13.8 4.2-17.1 9z"/><path fill="#4CAF50" d="M24 43.6c5.4 0 10.2-1.9 13.9-5.1l-6.4-5.4c-1.9 1.3-4.4 2.1-7.5 2.1-5.3 0-9.7-3.4-11.3-8.1l-6.2 4.5c3.3 6.5 9.9 12 17.5 12z"/><path fill="#1976D2" d="M43.6 20.5H42V20.4H24v7.2h11.3c-.8 2.2-2.2 4.1-4 5.5l6.4 5.4c-.4.4 6.9-5 6.9-14.5 0-1.2-.1-2.4-1-4z"/></svg>
+              <span>Avis Google</span>
+            </div>
+            <div class="avis-stars">
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <p>« Chauffeur sérieux, sympathique, le trajet a été très agréable ! »</p>
+            <div class="avis-review-author">Marc Bringuier</div>
+          </div>
+
+          <div class="avis-review-card" aria-hidden="true">
+            <div class="avis-review-head">
+              <svg viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20.4H24v7.2h11.3c-1.6 4.6-6 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l5.1-5.1C34.4 6.4 29.5 4.4 24 4.4 13.2 4.4 4.4 13.2 4.4 24S13.2 43.6 24 43.6 43.6 34.8 43.6 24c0-1.2-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.9 14.6l6 4.4C14.5 15.5 18.9 12.8 24 12.8c3.1 0 5.8 1.1 8 3l5.1-5.1C34.4 7.6 29.5 5.6 24 5.6c-7.4 0-13.8 4.2-17.1 9z"/><path fill="#4CAF50" d="M24 43.6c5.4 0 10.2-1.9 13.9-5.1l-6.4-5.4c-1.9 1.3-4.4 2.1-7.5 2.1-5.3 0-9.7-3.4-11.3-8.1l-6.2 4.5c3.3 6.5 9.9 12 17.5 12z"/><path fill="#1976D2" d="M43.6 20.5H42V20.4H24v7.2h11.3c-.8 2.2-2.2 4.1-4 5.5l6.4 5.4c-.4.4 6.9-5 6.9-14.5 0-1.2-.1-2.4-1-4z"/></svg>
+              <span>Avis Google</span>
+            </div>
+            <div class="avis-stars">
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <p>« Service impeccable. Chauffeur à l'heure, très agréable et conduite très sécurisante. Un grand merci pour sa patience et son attente. Je recommande sans hésiter. »</p>
+            <div class="avis-review-author">Richard Berthelot</div>
+          </div>
+
+        </div>
       </div>
 
       <div class="avis-card">
