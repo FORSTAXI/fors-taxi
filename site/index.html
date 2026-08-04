@@ -1451,9 +1451,6 @@
         flex-basis: 82vw;
         scroll-snap-align: start;
       }
-      .avis-review-card[aria-hidden="true"] {
-        display: none;
-      }
     }
     .avis-review-head {
       display: flex;
@@ -3701,6 +3698,24 @@
     });
 
     if (document.getElementById('simDistance')) simCalculate();
+  </script>
+
+  <script>
+    (function () {
+      var wrap = document.querySelector('.avis-carousel-wrap');
+      var track = document.querySelector('.avis-carousel-track');
+      if (!wrap || !track) return;
+      var resetting = false;
+      wrap.addEventListener('scroll', function () {
+        if (resetting) return;
+        var half = track.scrollWidth / 2;
+        if (wrap.scrollLeft >= half) {
+          resetting = true;
+          wrap.scrollLeft -= half;
+          resetting = false;
+        }
+      });
+    })();
   </script>
 
 </body>
