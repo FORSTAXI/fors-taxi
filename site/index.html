@@ -1434,6 +1434,27 @@
       border-radius: 18px;
       padding: 24px;
     }
+    @media (max-width: 640px) {
+      .avis-carousel-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x proximity;
+        -webkit-mask-image: none;
+        mask-image: none;
+        padding-bottom: 4px;
+      }
+      .avis-carousel-track {
+        animation: none;
+        width: max-content;
+      }
+      .avis-review-card {
+        flex-basis: 82vw;
+        scroll-snap-align: start;
+      }
+      .avis-review-card[aria-hidden="true"] {
+        display: none;
+      }
+    }
     .avis-review-head {
       display: flex;
       align-items: center;
