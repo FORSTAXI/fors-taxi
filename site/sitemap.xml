@@ -2,30 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://fors-taxi.fr/</loc>
+    <lastmod>2026-09-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
-  <url><loc>https://fors-taxi.fr/taxi-villieu-loyes-mollon.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://fors-taxi.fr/taxi-amberieu-en-bugey.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://fors-taxi.fr/taxi-ambronay.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://fors-taxi.fr/taxi-meximieux.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://fors-taxi.fr/taxi-blyes.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://fors-taxi.fr/taxi-chateau-gaillard.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://fors-taxi.fr/taxi-perouges.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://fors-taxi.fr/taxi-lagnieu.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://fors-taxi.fr/taxi-loyettes.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://fors-taxi.fr/taxi-chalamont.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://fors-taxi.fr/taxi-saint-vulbas.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://fors-taxi.fr/taxi-pont-d-ain.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://fors-taxi.fr/taxi-bourg-en-bresse.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://fors-taxi.fr/taxi-montluel.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://fors-taxi.fr/taxi-miribel.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://fors-taxi.fr/taxi-lyon.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://fors-taxi.fr/taxi-geneve.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://fors-taxi.fr/taxi-hauteville-lompnes.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://fors-taxi.fr/taxi-charnoz-sur-ain.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://fors-taxi.fr/taxi-saint-rambert-en-bugey.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://fors-taxi.fr/taxi-tenay.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://fors-taxi.fr/vsl-ou-taxi-conventionne.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://fors-taxi.fr/communes-desservies.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://fors-taxi.fr/taxi-villieu-loyes-mollon.html</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://fors-taxi.fr/taxi-amberieu-en-bugey.html</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://fors-taxi.fr/taxi-ambronay.html</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://fors-taxi.fr/taxi-meximieux.html</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://fors-taxi.fr/taxi-blyes.html</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://fors-taxi.fr/taxi-chateau-gaillard.html</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://fors-taxi.fr/taxi-perouges.html</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://fors-taxi.fr/taxi-lagnieu.html</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://fors-taxi.fr/taxi-loyettes.html</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://fors-taxi.fr/taxi-chalamont.html</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://fors-taxi.fr/taxi-saint-vulbas.html</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://fors-taxi.fr/taxi-pont-d-ain.html</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://fors-taxi.fr/taxi-bourg-en-bresse.html</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://fors-taxi.fr/taxi-montluel.html</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://fors-taxi.fr/taxi-miribel.html</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://fors-taxi.fr/taxi-lyon.html</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://fors-taxi.fr/taxi-geneve.html</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://fors-taxi.fr/taxi-hauteville-lompnes.html</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://fors-taxi.fr/taxi-charnoz-sur-ain.html</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://fors-taxi.fr/taxi-saint-rambert-en-bugey.html</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://fors-taxi.fr/taxi-tenay.html</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://fors-taxi.fr/vsl-ou-taxi-conventionne.html</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://fors-taxi.fr/communes-desservies.html</loc><lastmod>2026-09-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
 </urlset>
